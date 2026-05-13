@@ -261,6 +261,29 @@ function buildDashboard(states) {
     sections.push({ type: 'grid', cards: [{ type: 'custom:lirum-chips-card', chips: chipsRow }] });
   }
 
+  /**
+   * Walk a card config tree and inject `background: 'transparent'` on every
+   * Lirum card type. This produces the theme-adaptive variant: cards drop
+   * the dark-glow surface and pick up HA's `--primary-text-color` /
+   * `--secondary-text-color` / `--ha-card-border-color`, so they blend with
+   * whatever HA theme is active (dark or light).
+   */
+  const makeTransparent = (node) => {
+    if (Array.isArray(node)) return node.map(makeTransparent);
+    if (node && typeof node === 'object') {
+      const out = { ...node };
+      if (typeof out.type === 'string' && out.type.startsWith('custom:lirum-')) {
+        out.background = 'transparent';
+      }
+      for (const k of Object.keys(out)) {
+        out[k] = makeTransparent(out[k]);
+      }
+      return out;
+    }
+    return node;
+  };
+  const blendedSections = makeTransparent(sections);
+
   return {
     title: DASHBOARD_TITLE,
     views: [
@@ -270,6 +293,13 @@ function buildDashboard(states) {
         icon: 'mdi:flare',
         type: 'sections',
         sections,
+      },
+      {
+        title: 'Blended',
+        path: 'blended',
+        icon: 'mdi:palette-swatch-variant',
+        type: 'sections',
+        sections: blendedSections,
       },
     ],
   };
