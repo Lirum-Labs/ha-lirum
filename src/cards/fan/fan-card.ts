@@ -92,11 +92,17 @@ export class LirumFanCard extends LirumCardBase<FanConfig> {
       controls = html`${slider}${oscillateChip}`;
     }
 
+    // Spin the fan icon at a rate proportional to the percentage:
+    // 100% -> ~1s/rotation, 25% -> ~4s. Below 5% we leave it still.
+    const spinning = on && percentage >= 5;
+    const spinDuration = spinning ? Math.max(0.6, 4 - (percentage / 100) * 3) : 2;
+
     return this._renderTile({
       icon: this._defaultIcon(),
       iconColor: on ? 'cool' : 'neutral',
       iconActive: on,
-      iconPulse: on,
+      iconSpin: spinning,
+      iconSpinDuration: spinDuration,
       iconUnavailable: this._isUnavailable(),
       primary: this._defaultPrimary(),
       secondary,

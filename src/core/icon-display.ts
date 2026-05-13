@@ -9,16 +9,19 @@ export class LirumIcon extends LitElement {
   @property({ type: Boolean }) active = false;
   @property({ type: Boolean }) unavailable = false;
   @property({ type: Boolean }) pulse = false;
+  @property({ type: Boolean }) spin = false;
+  @property({ type: Number }) spinDuration = 2;
   @property({ type: Number }) intensity = 1;
   @property() picture = '';
 
   protected render(): TemplateResult | typeof nothing {
     const palette: Palette = rampOf(this.colorRamp);
     const halo = Math.max(0, Math.min(1, this.intensity));
-    const stylesStr = `--c1:${palette.c1};--c2:${palette.c2};--c3:${palette.c3};--halo:${halo}`;
+    const stylesStr =
+      `--c1:${palette.c1};--c2:${palette.c2};--c3:${palette.c3};--halo:${halo};--spin-dur:${this.spinDuration}s`;
     return html`
       <div
-        class="wrap ${this.active ? 'active' : ''} ${this.unavailable ? 'unavail' : ''} ${this.pulse ? 'pulse lirum-anim' : ''}"
+        class="wrap ${this.active ? 'active' : ''} ${this.unavailable ? 'unavail' : ''} ${this.pulse ? 'pulse lirum-anim' : ''} ${this.spin ? 'spin lirum-anim' : ''}"
         style=${stylesStr}
       >
         <div class="glow"></div>
@@ -95,9 +98,16 @@ export class LirumIcon extends LitElement {
     .pulse ha-icon {
       animation: lirum-glow-pulse 2.4s ease-in-out infinite;
     }
+    .spin ha-icon {
+      animation: lirum-icon-spin var(--spin-dur, 2s) linear infinite;
+      transform-origin: 50% 50%;
+    }
     @keyframes lirum-glow-pulse {
       0%, 100% { filter: drop-shadow(0 0 6px color-mix(in oklab, var(--c1) 50%, transparent)); }
       50%      { filter: drop-shadow(0 0 14px color-mix(in oklab, var(--c1) 80%, transparent)); }
+    }
+    @keyframes lirum-icon-spin {
+      to { transform: rotate(360deg); }
     }
   `;
 }

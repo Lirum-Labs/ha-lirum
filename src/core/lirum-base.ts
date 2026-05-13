@@ -66,6 +66,8 @@ export abstract class LirumCardBase<TConfig extends LirumBaseConfig = LirumBaseC
     iconActive?: boolean;
     iconUnavailable?: boolean;
     iconPulse?: boolean;
+    iconSpin?: boolean;
+    iconSpinDuration?: number;
     iconPicture?: string;
     primary: string;
     secondary?: string;
@@ -88,6 +90,8 @@ export abstract class LirumCardBase<TConfig extends LirumBaseConfig = LirumBaseC
                   .active=${opts.iconActive ?? false}
                   .unavailable=${opts.iconUnavailable ?? false}
                   .pulse=${opts.iconPulse ?? false}
+                  .spin=${opts.iconSpin ?? false}
+                  .spinDuration=${opts.iconSpinDuration ?? 2}
                 ></lirum-icon>`
               : nothing}
             <div class="label lirum-name">${opts.primary}</div>
