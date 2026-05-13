@@ -24,6 +24,14 @@ export const CARDS = {
   template:   { tag: 'lirum-template-card',   editor: 'lirum-template-card-editor',   name: 'Lirum Template',    desc: 'Free-form template card.' },
   scene:      { tag: 'lirum-scene-card',      editor: 'lirum-scene-card-editor',      name: 'Lirum Scene',       desc: 'One-tap scene activation tile.' },
   script:     { tag: 'lirum-script-card',     editor: 'lirum-script-card-editor',     name: 'Lirum Script',      desc: 'Run a script with running-state feedback.' },
+  camera:     { tag: 'lirum-camera-card',     editor: 'lirum-camera-card-editor',     name: 'Lirum Camera',      desc: 'Camera snapshot with glow frame.' },
+  weather:    { tag: 'lirum-weather-card',    editor: 'lirum-weather-card-editor',    name: 'Lirum Weather',     desc: 'Current conditions plus forecast strip.' },
+  gauge:      { tag: 'lirum-gauge-card',      editor: 'lirum-gauge-card-editor',      name: 'Lirum Gauge',       desc: 'Radial gauge for any numeric sensor.' },
+  tile:       { tag: 'lirum-tile-card',       editor: 'lirum-tile-card-editor',       name: 'Lirum Tile',        desc: 'Compact KPI tile with big number and label.' },
+  stack:      { tag: 'lirum-stack-card',      editor: 'lirum-stack-card-editor',      name: 'Lirum Stack',       desc: 'Vertical or horizontal stack of cards.' },
+  grid:       { tag: 'lirum-grid-card',       editor: 'lirum-grid-card-editor',       name: 'Lirum Grid',        desc: 'Uniform-column grid of cards.' },
+  conditional:{ tag: 'lirum-conditional-card',editor: 'lirum-conditional-card-editor',name: 'Lirum Conditional', desc: 'Show inner cards only when conditions match.' },
+  markdown:   { tag: 'lirum-markdown-card',   editor: 'lirum-markdown-card-editor',   name: 'Lirum Markdown',    desc: 'Rendered markdown content (headings, lists, links, code).' },
 } as const;
 
 export type CardKey = keyof typeof CARDS;

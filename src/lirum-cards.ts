@@ -23,6 +23,14 @@ import './cards/title/title-card';
 import './cards/template/template-card';
 import './cards/scene/scene-card';
 import './cards/script/script-card';
+import './cards/camera/camera-card';
+import './cards/weather/weather-card';
+import './cards/gauge/gauge-card';
+import './cards/tile/tile-card';
+import './cards/stack/stack-card';
+import './cards/grid/grid-card';
+import './cards/conditional/conditional-card';
+import './cards/markdown/markdown-card';
 
 const count = Object.keys(CARDS).length;
 const ramp = ['#1ee0ff', '#2a7bff', '#0a3aa0'];
