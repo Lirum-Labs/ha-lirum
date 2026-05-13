@@ -29,6 +29,9 @@ export interface TemplateConfig extends LirumBaseConfig {
 
 const STATES_RE = /\{\{\s*states\(\s*['"]([^'"]+)['"]\s*\)\s*\}\}/g;
 const STATE_ATTR_RE = /\{\{\s*state_attr\(\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\s*\)\s*\}\}/g;
+const IS_STATE_RE = /\{\{\s*is_state\(\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\s*\)\s*\}\}/g;
+const IS_STATE_ATTR_RE = /\{\{\s*is_state_attr\(\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]*)['"]\s*\)\s*\}\}/g;
+const IF_RE = /\{%\s*if\s+([^%]+?)\s*%\}([\s\S]*?)(?:\{%\s*else\s*%\}([\s\S]*?))?\{%\s*endif\s*%\}/g;
 
 @customElement(CARDS.template.tag)
 export class LirumTemplateCard extends LirumCardBase<TemplateConfig> {
@@ -47,7 +50,27 @@ export class LirumTemplateCard extends LirumCardBase<TemplateConfig> {
 
   private _eval(template: string | undefined): string {
     if (!template) return '';
-    let out = template.replace(STATE_ATTR_RE, (_m, entityId: string, attr: string) => {
+    let out = template;
+    // Predicates evaluate to literal 'true' / 'false' strings so they can be
+    // used inside `{% if … %}` blocks below.
+    out = out.replace(IS_STATE_ATTR_RE, (_m, entityId: string, attr: string, expected: string) => {
+      const s = this.hass?.states[entityId];
+      return s && String(s.attributes[attr] ?? '') === expected ? 'true' : 'false';
+    });
+    out = out.replace(IS_STATE_RE, (_m, entityId: string, expected: string) => {
+      const s = this.hass?.states[entityId];
+      return s && s.state === expected ? 'true' : 'false';
+    });
+    // Conditional blocks. Inner content has already had predicates resolved.
+    out = out.replace(IF_RE, (_m, cond: string, then: string, els?: string) => {
+      const c = cond.trim().toLowerCase();
+      const truthy =
+        c === 'true' ||
+        (c.startsWith('not ') && c.slice(4).trim() === 'false') ||
+        (c.length > 0 && c !== 'false' && c !== '0' && c !== '"' && c !== "'");
+      return truthy ? then : (els ?? '');
+    });
+    out = out.replace(STATE_ATTR_RE, (_m, entityId: string, attr: string) => {
       const s = this.hass?.states[entityId];
       if (!s) return '';
       const v = s.attributes[attr];
