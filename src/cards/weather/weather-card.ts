@@ -171,31 +171,37 @@ export class LirumWeatherCard extends LirumCardBase<WeatherConfig> {
 
     const forecastRow =
       showForecast && forecast && forecast.length > 0
-        ? html`<div class="forecast">
-            ${forecast.slice(0, Math.max(0, forecastDays)).map((entry) => {
-              const day = shortDate(entry.datetime);
-              const cond = entry.condition ?? '';
-              const dayIcon = WEATHER_ICONS[cond] ?? 'mdi:weather-partly-cloudy';
-              const high =
-                typeof entry.temperature === 'number'
-                  ? Math.round(entry.temperature)
-                  : undefined;
-              const low =
-                typeof entry.templow === 'number' ? Math.round(entry.templow) : undefined;
-              const tempLabel =
-                high !== undefined && low !== undefined
-                  ? `${high}°/${low}°`
-                  : high !== undefined
-                    ? `${high}°`
-                    : low !== undefined
-                      ? `${low}°`
-                      : '–';
-              return html`<div class="forecast-tile">
-                <div class="forecast-day">${day}</div>
-                <ha-icon class="forecast-icon" icon=${dayIcon}></ha-icon>
-                <div class="forecast-temp">${tempLabel}</div>
-              </div>`;
-            })}
+        ? html`<div class="forecast-strip">
+            <div class="forecast">
+              ${forecast.slice(0, Math.max(0, forecastDays)).map((entry, idx) => {
+                const day = shortDate(entry.datetime);
+                const cond = entry.condition ?? '';
+                const dayIcon = WEATHER_ICONS[cond] ?? 'mdi:weather-partly-cloudy';
+                const high =
+                  typeof entry.temperature === 'number'
+                    ? Math.round(entry.temperature)
+                    : undefined;
+                const low =
+                  typeof entry.templow === 'number' ? Math.round(entry.templow) : undefined;
+                const isToday = idx === 0;
+                return html`<div class="forecast-tile ${isToday ? 'is-today' : ''}">
+                  <div class="forecast-day">
+                    ${isToday ? html`<span class="now-dot"></span>` : nothing}
+                    <span class="forecast-day-label">${isToday ? 'Today' : day}</span>
+                  </div>
+                  <ha-icon class="forecast-icon lirum-anim" icon=${dayIcon}></ha-icon>
+                  <div class="forecast-temp">
+                    ${high !== undefined
+                      ? html`<span class="t-high">${high}°</span>`
+                      : html`<span class="t-high">–</span>`}
+                    ${low !== undefined
+                      ? html`<span class="t-sep">·</span
+                          ><span class="t-low">${low}°</span>`
+                      : nothing}
+                  </div>
+                </div>`;
+              })}
+            </div>
           </div>`
         : nothing;
 
@@ -259,17 +265,26 @@ export class LirumWeatherCard extends LirumCardBase<WeatherConfig> {
         min-width: 0;
       }
       .details {
+        --c1: #1ee0ff;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-        padding-top: 8px;
-        border-top: 1px solid color-mix(in oklab, currentColor 6%, transparent);
+        gap: 8px;
+        padding-top: 10px;
       }
       .cell {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 4px;
         min-width: 0;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: linear-gradient(
+          180deg,
+          color-mix(in oklab, var(--c1) 6%, transparent),
+          color-mix(in oklab, currentColor 3%, transparent)
+        );
+        border: 1px solid color-mix(in oklab, var(--c1) 18%, transparent);
+        backdrop-filter: blur(2px);
       }
       .cell-label {
         display: inline-flex;
@@ -293,41 +308,123 @@ export class LirumWeatherCard extends LirumCardBase<WeatherConfig> {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+      .forecast-strip {
+        --c1: #1ee0ff;
+        position: relative;
+        padding-top: 10px;
+      }
+      .forecast-strip::before,
+      .forecast-strip::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        bottom: 2px;
+        width: 18px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .forecast-strip::before {
+        left: 0;
+        background: linear-gradient(
+          90deg,
+          color-mix(in oklab, #060a14 85%, transparent),
+          transparent
+        );
+      }
+      .forecast-strip::after {
+        right: 0;
+        background: linear-gradient(
+          270deg,
+          color-mix(in oklab, #060a14 85%, transparent),
+          transparent
+        );
+      }
       .forecast {
         display: flex;
         gap: 8px;
         overflow-x: auto;
-        padding: 8px 0 2px;
-        border-top: 1px solid color-mix(in oklab, currentColor 6%, transparent);
+        padding: 2px 2px 4px;
         scrollbar-width: thin;
+        scroll-snap-type: x proximity;
       }
       .forecast-tile {
         flex: 0 0 auto;
-        min-width: 56px;
-        padding: 8px 10px;
+        min-width: 64px;
+        max-width: 84px;
+        padding: 8px 8px 9px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 4px;
+        gap: 5px;
         border-radius: 10px;
-        background: color-mix(in oklab, currentColor 5%, transparent);
-        border: 1px solid color-mix(in oklab, currentColor 8%, transparent);
+        background: linear-gradient(
+          180deg,
+          color-mix(in oklab, var(--c1) 7%, transparent),
+          color-mix(in oklab, currentColor 3%, transparent)
+        );
+        border: 1px solid color-mix(in oklab, var(--c1) 18%, transparent);
+        scroll-snap-align: start;
+        transition:
+          border-color 160ms ease,
+          box-shadow 160ms ease,
+          transform 160ms ease;
+      }
+      .forecast-tile:hover {
+        border-color: color-mix(in oklab, var(--c1) 45%, transparent);
+        box-shadow:
+          0 0 0 1px color-mix(in oklab, var(--c1) 25%, transparent),
+          0 0 16px color-mix(in oklab, var(--c1) 28%, transparent);
+      }
+      .forecast-tile.is-today {
+        border-color: color-mix(in oklab, var(--c1) 35%, transparent);
+        box-shadow: 0 0 12px color-mix(in oklab, var(--c1) 18%, transparent);
       }
       .forecast-day {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
         font-size: 10px;
         letter-spacing: 1.2px;
         text-transform: uppercase;
         color: var(--lirum-muted, #6b7894);
         font-weight: 600;
+        line-height: 1;
+      }
+      .forecast-tile.is-today .forecast-day-label {
+        color: var(--lirum-text, #eef3ff);
+      }
+      .now-dot {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--c1);
+        box-shadow: 0 0 6px color-mix(in oklab, var(--c1) 80%, transparent);
+        animation: lirum-shimmer 2.4s ease-in-out infinite;
       }
       .forecast-icon {
         --mdc-icon-size: 22px;
         color: var(--lirum-text, #eef3ff);
+        animation: lirum-glow-pulse 4.2s ease-in-out infinite;
       }
       .forecast-temp {
         font-size: 12px;
         color: var(--lirum-text, #eef3ff);
         font-variant-numeric: tabular-nums;
+        display: inline-flex;
+        align-items: baseline;
+        gap: 4px;
+        line-height: 1;
+      }
+      .t-high {
+        font-weight: 600;
+        color: var(--lirum-text, #eef3ff);
+      }
+      .t-sep {
+        opacity: 0.5;
+      }
+      .t-low {
+        color: color-mix(in oklab, currentColor 50%, transparent);
       }
     `,
   ];
