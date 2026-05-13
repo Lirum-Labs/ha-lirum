@@ -8,3 +8,5 @@ node_modules/
 .idea/
 .vscode/
 coverage/
+dev/preview.iife.js
+dev/preview.iife.js.map

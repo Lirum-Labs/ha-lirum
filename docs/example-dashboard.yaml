@@ -1,0 +1,148 @@
+# Lirum Cards — example dashboard
+#
+# Drop this YAML into a Lovelace dashboard (Settings → Dashboards → ⋮ →
+# Raw configuration editor) to see every card type at once. Replace the
+# entity_ids with ones from your own home.
+#
+# Add the resource first:
+#   /lirum-cards/lirum-cards.js  (or the JSDelivr URL)
+#   Type: JavaScript module
+#
+# Then paste this views: block under your dashboard config.
+
+title: Lirum Showcase
+views:
+  - title: Showcase
+    path: showcase
+    icon: mdi:flare
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: custom:lirum-title-card
+            title: Living room
+            subtitle: Lights, climate, and media
+            alignment: start
+
+          - type: custom:lirum-light-card
+            entity: light.living_room
+            show_brightness_control: true
+            show_color_temp_control: true
+            show_color_control: true
+            collapsible_controls: true
+
+          - type: custom:lirum-light-card
+            entity: light.kitchen
+
+          - type: custom:lirum-climate-card
+            entity: climate.living_room
+            show_temperature_control: true
+
+          - type: custom:lirum-media-card
+            entity: media_player.living_room_speaker
+            show_volume_control: true
+            show_transport_control: true
+            show_mute_control: true
+
+      - type: grid
+        cards:
+          - type: custom:lirum-title-card
+            title: Doors & access
+            subtitle: Locks, covers, alarms
+            alignment: start
+
+          - type: custom:lirum-lock-card
+            entity: lock.front_door
+
+          - type: custom:lirum-cover-card
+            entity: cover.bedroom_blinds
+            show_buttons_control: true
+            show_position_control: true
+
+          - type: custom:lirum-cover-card
+            entity: cover.garage_door
+
+          - type: custom:lirum-alarm-card
+            entity: alarm_control_panel.home
+            show_keypad: false
+
+      - type: grid
+        cards:
+          - type: custom:lirum-title-card
+            title: Comfort
+            subtitle: Fans, humidifiers, vacuums
+            alignment: start
+
+          - type: custom:lirum-fan-card
+            entity: fan.bedroom
+            show_percentage_control: true
+            show_oscillate_control: true
+
+          - type: custom:lirum-humidifier-card
+            entity: humidifier.bedroom
+
+          - type: custom:lirum-vacuum-card
+            entity: vacuum.roomba
+
+      - type: grid
+        cards:
+          - type: custom:lirum-title-card
+            title: People & status
+            alignment: start
+
+          - type: custom:lirum-person-card
+            entity: person.alice
+
+          - type: custom:lirum-switch-card
+            entity: switch.fan_corner
+
+          - type: custom:lirum-switch-card
+            entity: input_boolean.movie_mode
+
+          - type: custom:lirum-select-card
+            entity: input_select.scene
+
+      - type: grid
+        cards:
+          - type: custom:lirum-title-card
+            title: Numbers & misc
+            alignment: start
+
+          - type: custom:lirum-number-card
+            entity: input_number.brightness_offset
+
+          - type: custom:lirum-slider-card
+            entity: sensor.outside_temp
+            min: -10
+            max: 40
+            step: 0.1
+            unit: "°C"
+
+          - type: custom:lirum-update-card
+            entity: update.hacs
+
+          - type: custom:lirum-template-card
+            entity: sensor.outside_temp
+            primary: "Outside: {{ states('sensor.outside_temp') }}°C"
+            secondary: "Sun is {{ states('sun.sun') }}"
+            icon: mdi:thermometer
+            icon_color: cool
+
+      - type: grid
+        cards:
+          - type: custom:lirum-chips-card
+            chips:
+              - type: entity
+                entity: switch.fan_corner
+                icon: mdi:fan
+              - type: entity
+                entity: light.living_room
+                icon: mdi:lightbulb
+              - type: weather
+                entity: weather.home
+              - type: menu
+              - type: action
+                icon: mdi:home
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/0
