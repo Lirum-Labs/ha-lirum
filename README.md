@@ -99,15 +99,15 @@ cards:
 
 A full demo dashboard is at [`docs/example-dashboard.yaml`](docs/example-dashboard.yaml).
 
-## Development
+## Development & demo
 
 ```bash
 npm install
 npm run dev   # rollup --watch + serve on :8000
-open http://localhost:8000/dev/
 ```
 
-The dev page (`dev/index.html`) mounts every card with fixture entities so you can iterate without HA. Service calls are logged and mutate the fixture state.
+- **`http://localhost:8000/dev/`** — bare test page (`dev/index.html`). Every card type mounted in a grid with fixture entities. Service calls log to the side panel and mutate the fixture state.
+- **`http://localhost:8000/dev/showcase.html`** — polished standalone showcase with theme (Dark/Light) and variant (Dark-glow/Blended) toggles. 9 scenes, 47 card instances, no HA required. Great for screenshots and demos.
 
 ## License
 

@@ -10,3 +10,5 @@ node_modules/
 coverage/
 dev/preview.iife.js
 dev/preview.iife.js.map
+dev/showcase.iife.js
+dev/showcase.iife.js.map

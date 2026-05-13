@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lirum Cards · Showcase</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <style>
+      :root {
+        --c1: #1ee0ff;
+        --c2: #2a7bff;
+        --c3: #0a3aa0;
+        --c-pink: #c046b3;
+      }
+
+      :root[data-theme='dark'], :root:not([data-theme]) {
+        --page-bg-0: #05070d;
+        --page-bg-1: #0a0f1c;
+        --page-bg-2: #111b30;
+        --page-text: #eef3ff;
+        --page-text-soft: #b8c3da;
+        --page-muted: #6b7894;
+        --panel-bg: linear-gradient(180deg, rgba(11, 19, 38, 0.72), rgba(6, 10, 20, 0.78));
+        --panel-border: rgba(120, 160, 220, 0.18);
+        --nav-bg: rgba(8, 13, 25, 0.7);
+        --primary-text-color: #eef3ff;
+        --secondary-text-color: #b8c3da;
+        --ha-card-background: #0f1a30;
+        --card-background-color: #0f1a30;
+        --primary-background-color: #060a14;
+      }
+
+      :root[data-theme='light'] {
+        --page-bg-0: #f5f7fb;
+        --page-bg-1: #ffffff;
+        --page-bg-2: #e8eef9;
+        --page-text: #0c1426;
+        --page-text-soft: #2f3e5e;
+        --page-muted: #6b7896;
+        --panel-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(232, 238, 249, 0.7));
+        --panel-border: rgba(20, 50, 110, 0.12);
+        --nav-bg: rgba(255, 255, 255, 0.85);
+        /* HA-style theme vars so transparent-mode cards adopt these */
+        --primary-text-color: #141414;
+        --secondary-text-color: #5e5e5e;
+        --ha-card-background: #ffffff;
+        --card-background-color: #ffffff;
+        --primary-background-color: #fafafa;
+        --divider-color: rgba(0, 0, 0, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        min-height: 100vh;
+        background:
+          radial-gradient(ellipse at 50% -10%, var(--page-bg-2), transparent 60%),
+          radial-gradient(ellipse at 100% 100%, color-mix(in oklab, var(--c-pink) 8%, transparent), transparent 60%),
+          var(--page-bg-0);
+        color: var(--page-text);
+        font-family: 'Inter', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      :root[data-theme='dark'] body::before, :root:not([data-theme]) body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(1px 1px at 12% 23%, rgba(255,255,255,0.6), transparent),
+          radial-gradient(1px 1px at 78% 14%, rgba(255,255,255,0.45), transparent),
+          radial-gradient(1px 1px at 33% 86%, rgba(255,255,255,0.5), transparent),
+          radial-gradient(1px 1px at 88% 71%, rgba(255,255,255,0.35), transparent),
+          radial-gradient(1px 1px at 51% 47%, rgba(255,255,255,0.3), transparent);
+        opacity: 0.35;
+        z-index: 0;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 36px 28px 64px;
+      }
+
+      /* HERO */
+      header.hero {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 36px;
+        padding: 18px 0 28px;
+        border-bottom: 1px solid var(--panel-border);
+      }
+      .brand h1 {
+        margin: 0;
+        font-size: 56px;
+        line-height: 1;
+        letter-spacing: -2px;
+        font-weight: 600;
+        background: linear-gradient(96deg, var(--c1), var(--c2) 55%, var(--c-pink));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .brand .tagline {
+        margin: 8px 0 0;
+        font-size: 16px;
+        color: var(--page-text-soft);
+        max-width: 640px;
+      }
+      .brand .badges {
+        margin-top: 14px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-radius: 999px;
+        background: rgba(120, 160, 220, 0.1);
+        border: 1px solid var(--panel-border);
+        color: var(--page-text-soft);
+      }
+      .badge.live {
+        background: color-mix(in oklab, var(--c1) 15%, transparent);
+        border-color: color-mix(in oklab, var(--c1) 40%, transparent);
+        color: var(--c1);
+      }
+      .badge.live::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--c1);
+        box-shadow: 0 0 8px var(--c1);
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%      { opacity: 0.4; transform: scale(0.7); }
+      }
+
+      .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+      }
+      .control-group {
+        display: flex;
+        gap: 4px;
+        padding: 4px;
+        background: var(--panel-bg);
+        border: 1px solid var(--panel-border);
+        border-radius: 14px;
+        backdrop-filter: blur(12px);
+      }
+      .control-group .label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--page-muted);
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+      }
+      .control-group button {
+        appearance: none;
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--page-text-soft);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 8px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+      .control-group button:hover {
+        background: rgba(120, 160, 220, 0.1);
+        color: var(--page-text);
+      }
+      .control-group button.active {
+        background: linear-gradient(135deg,
+          color-mix(in oklab, var(--c1) 28%, transparent),
+          color-mix(in oklab, var(--c2) 20%, transparent));
+        border-color: color-mix(in oklab, var(--c1) 50%, transparent);
+        color: white;
+        box-shadow: 0 0 0 1px color-mix(in oklab, var(--c1) 30%, transparent),
+          0 0 16px color-mix(in oklab, var(--c1) 25%, transparent);
+      }
+
+      /* NAV */
+      .scene-nav {
+        position: sticky;
+        top: 12px;
+        z-index: 10;
+        margin: 28px 0;
+        padding: 8px;
+        background: var(--nav-bg);
+        backdrop-filter: blur(14px);
+        border: 1px solid var(--panel-border);
+        border-radius: 14px;
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+      }
+      .scene-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        color: var(--page-text-soft);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        border-radius: 8px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .scene-nav a:hover {
+        background: rgba(120, 160, 220, 0.12);
+        color: var(--page-text);
+      }
+      .scene-nav ha-icon {
+        --mdc-icon-size: 14px;
+        color: var(--c1);
+      }
+
+      /* SCENES */
+      .scene {
+        margin: 56px 0;
+        scroll-margin-top: 88px;
+      }
+      .scene-header {
+        margin-bottom: 18px;
+      }
+      .scene-header h2 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+      }
+      .scene-header h2 ha-icon {
+        --mdc-icon-size: 24px;
+        color: var(--c1);
+        filter: drop-shadow(0 0 6px color-mix(in oklab, var(--c1) 50%, transparent));
+      }
+      .scene-header p {
+        margin: 6px 0 0 36px;
+        font-size: 14px;
+        color: var(--page-muted);
+        max-width: 720px;
+      }
+      .scene-grid {
+        display: grid;
+        grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+        gap: 14px;
+      }
+      @media (max-width: 1100px) {
+        .scene-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 720px) {
+        .scene-grid { grid-template-columns: 1fr; }
+        .cell { grid-column: auto !important; }
+      }
+      .cell {
+        min-width: 0;
+      }
+      .cell.missing {
+        padding: 14px;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 11px;
+        color: #ff5a7a;
+        background: rgba(255, 90, 122, 0.08);
+        border: 1px dashed rgba(255, 90, 122, 0.3);
+        border-radius: 10px;
+      }
+
+      /* FOOTER */
+      footer.foot {
+        margin-top: 64px;
+        padding-top: 28px;
+        border-top: 1px solid var(--panel-border);
+        text-align: center;
+        font-size: 12px;
+        color: var(--page-muted);
+      }
+      footer.foot a {
+        color: var(--page-text-soft);
+        text-decoration: none;
+        border-bottom: 1px dashed var(--panel-border);
+      }
+      footer.foot a:hover { color: var(--c1); }
+
+      /* Light-theme tweaks for HA-card host element */
+      :root[data-theme='light'] body::before { display: none; }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .badge.live::before { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="brand">
+          <h1>Lirum Cards</h1>
+          <p class="tagline">Glowing, animated Lovelace cards for Home Assistant. <strong>31 cards</strong> sharing the design language of <a href="https://github.com/Lirum-Labs/ha-power-gauge" style="color: inherit;">ha-power-gauge</a>, with the control surface of <a href="https://github.com/piitaya/lovelace-mushroom" style="color: inherit;">Mushroom</a>.</p>
+          <div class="badges">
+            <span class="badge live">live demo</span>
+            <span class="badge" id="version-badge">v0.2.2</span>
+            <span class="badge">31 card types</span>
+            <span class="badge">no HA needed</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="control-group" role="radiogroup" aria-label="Theme">
+            <span class="label">Theme</span>
+            <button data-theme="dark" class="active" type="button">Dark</button>
+            <button data-theme="light" type="button">Light</button>
+          </div>
+          <div class="control-group" role="radiogroup" aria-label="Variant">
+            <span class="label">Variant</span>
+            <button data-variant="glow" class="active" type="button">Dark-glow</button>
+            <button data-variant="blended" type="button">Blended</button>
+          </div>
+        </div>
+      </header>
+
+      <div id="scene-nav-host"></div>
+
+      <main id="scenes"></main>
+
+      <footer class="foot">
+        Lirum Cards · <a href="https://github.com/Lirum-Labs/ha-lirum">github.com/Lirum-Labs/ha-lirum</a> · Apache 2.0 © 2026 Lirum Labs.
+        <br />
+        Inspired by <a href="https://github.com/piitaya/lovelace-mushroom">Mushroom</a> and <a href="https://github.com/Lirum-Labs/ha-power-gauge">ha-power-gauge</a>.
+      </footer>
+    </div>
+
+    <!-- The Lirum card bundle (registers all 31 custom elements). -->
+    <script src="../dist/lirum-cards.iife.js"></script>
+    <!-- Showcase wiring: mock-hass fixtures + scene rendering + toggles. -->
+    <script src="./showcase.iife.js"></script>
+  </body>
+</html>

@@ -45,4 +45,15 @@ export default [
     },
     plugins: sharedPlugins(),
   },
+  {
+    input: 'dev/showcase.ts',
+    output: {
+      file: 'dev/showcase.iife.js',
+      format: 'iife',
+      name: 'HaLirumShowcase',
+      sourcemap: dev,
+      inlineDynamicImports: true,
+    },
+    plugins: sharedPlugins(),
+  },
 ];
