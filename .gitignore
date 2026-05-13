@@ -12,3 +12,4 @@ dev/preview.iife.js
 dev/preview.iife.js.map
 dev/showcase.iife.js
 dev/showcase.iife.js.map
+.playwright-mcp/
