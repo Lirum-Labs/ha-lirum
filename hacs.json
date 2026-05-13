@@ -1,0 +1,7 @@
+{
+  "name": "Lirum Cards",
+  "render_readme": true,
+  "filename": "lirum-cards.js",
+  "content_in_root": false,
+  "homeassistant": "2024.1.0"
+}

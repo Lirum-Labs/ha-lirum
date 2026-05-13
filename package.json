@@ -1,0 +1,49 @@
+{
+  "name": "ha-lirum",
+  "version": "0.1.0",
+  "description": "Glowing, animated Lovelace cards for Home Assistant — Mushroom controls, ha-power-gauge feel.",
+  "main": "dist/lirum-cards.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c --watch",
+    "dev": "concurrently -n build,serve -c blue,green \"rollup -c --watch\" \"serve -l 8000 .\"",
+    "serve": "serve -l 8000 .",
+    "lint": "eslint \"src/**/*.ts\" \"dev/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"dev/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "custom-card",
+    "mushroom",
+    "lirum"
+  ],
+  "license": "Apache-2.0",
+  "author": "Lirum Labs (https://github.com/Lirum-Labs)",
+  "homepage": "https://github.com/Lirum-Labs/ha-lirum",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lirum-Labs/ha-lirum.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lirum-Labs/ha-lirum/issues"
+  },
+  "dependencies": {
+    "custom-card-helpers": "^1.9.0",
+    "lit": "^3.1.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "concurrently": "^8.2.2",
+    "rollup": "^4.18.0",
+    "serve": "^14.2.4",
+    "tslib": "^2.6.3",
+    "typescript": "^5.4.5"
+  }
+}
