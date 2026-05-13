@@ -1,0 +1,44 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  hacs:
+    runs-on: ubuntu-latest
+    name: HACS validation
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hacs/action@main
+        with:
+          category: plugin
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build + typecheck
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Verify bundle is committed in sync with source
+        run: |
+          if ! git diff --exit-code -- dist/; then
+            echo "::error::dist/ is out of date — run \`npm run build\` and commit the result"
+            exit 1
+          fi
+      - name: Bundle size budget (<= 250 KB minified)
+        run: |
+          size=$(wc -c < dist/lirum-cards.js)
+          echo "Bundle: ${size} bytes"
+          if [ "$size" -gt 250000 ]; then
+            echo "::error::Bundle exceeds 250 KB budget ($size bytes)"
+            exit 1
+          fi
