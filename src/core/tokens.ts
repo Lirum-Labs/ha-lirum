@@ -4,14 +4,26 @@ export interface Palette {
   c3: string;
 }
 
+/**
+ * Named color ramps. Each ramp has three stops used together to render the
+ * instrument-panel glow:
+ *
+ *   c1 — brightest    (icon, tip dot, hover halo, sparkline endpoint)
+ *   c2 — mid          (gradient mid-stop on sparkline strokes, slider fill)
+ *   c3 — deepest      (gradient start stop on sparkline strokes, deep shadow)
+ *
+ * The ramps below were tuned in Claude design to read clearly against the
+ * dark Lirum surface — saturated enough that the tinted backdrop is visible
+ * but not so saturated that the value typography gets fought.
+ */
 export const LIRUM_RAMPS: Record<string, Palette> = {
   cool:    { c1: '#1ee0ff', c2: '#2a7bff', c3: '#0a3aa0' },
-  warm:    { c1: '#ffb347', c2: '#ff6e3c', c3: '#7a1b07' },
-  energy:  { c1: '#a8ff5a', c2: '#3acf3a', c3: '#1a5f1a' },
-  alert:   { c1: '#ff5a7a', c2: '#d12338', c3: '#5a0a16' },
-  rose:    { c1: '#ff9ae0', c2: '#c046b3', c3: '#5a1b54' },
-  amber:   { c1: '#ffd35a', c2: '#e89a1a', c3: '#6e4408' },
-  neutral: { c1: '#9dadc7', c2: '#5d6f8f', c3: '#1f2a3e' },
+  warm:    { c1: '#ff8a3d', c2: '#ff6b1c', c3: '#c44a05' },
+  energy:  { c1: '#3df0a8', c2: '#16c47e', c3: '#0a7d4f' },
+  alert:   { c1: '#ff5670', c2: '#e11d48', c3: '#7a0a1f' },
+  rose:    { c1: '#ff9ae0', c2: '#ec4899', c3: '#831843' },
+  amber:   { c1: '#ffc83d', c2: '#f59e0b', c3: '#b45309' },
+  neutral: { c1: '#94a3b8', c2: '#64748b', c3: '#1e293b' },
 };
 
 export const LIRUM_BG = {
@@ -39,5 +51,20 @@ export function backgroundVars(bg: string | undefined): Record<string, string> {
     '--lirum-card-border': adaptive
       ? 'var(--ha-card-border-color, var(--divider-color, rgba(0,0,0,0.12)))'
       : 'color-mix(in oklab, currentColor 12%, transparent)',
+  };
+}
+
+/**
+ * Emit the `--lirum-c1/c2/c3` CSS variables for a card frame so the shared
+ * `ha-card` styling (`::before` tint, hover halo, hairline) follows the
+ * active color ramp. Cards call this in addition to `backgroundVars()` to
+ * make the ENTIRE card surface respond to the active device-class.
+ */
+export function rampVars(name: string | undefined): Record<string, string> {
+  const p = rampOf(name);
+  return {
+    '--lirum-c1': p.c1,
+    '--lirum-c2': p.c2,
+    '--lirum-c3': p.c3,
   };
 }

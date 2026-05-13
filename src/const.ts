@@ -1,4 +1,4 @@
-export const VERSION = '0.2.1';
+export const VERSION = '0.2.2';
 
 export const CARDS = {
   entity:     { tag: 'lirum-entity-card',     editor: 'lirum-entity-card-editor',     name: 'Lirum Entity',      desc: 'Universal entity card.' },

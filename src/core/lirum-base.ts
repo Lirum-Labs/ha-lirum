@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import type { HomeAssistant, LirumBaseConfig, HassEntity } from './hass';
 import { entityName, entityIcon, isUnavailable, stateActive } from './hass';
 import { defaultIconFor } from './icons';
-import { backgroundVars } from './tokens';
+import { backgroundVars, rampVars } from './tokens';
 import { bindGestures, handleLirumAction, type GestureType } from './actions';
 import { lirumCardFrame, lirumLayouts, lirumKeyframes } from './styles';
 import './icon-display';
@@ -76,7 +76,8 @@ export abstract class LirumCardBase<TConfig extends LirumBaseConfig = LirumBaseC
   }): TemplateResult {
     const layout = this._config?.layout ?? 'default';
     const fill = this._config?.fill_container ? 'fill' : '';
-    const cssVars = backgroundVars(this._config?.background);
+    const effectiveRamp = opts.iconColor ?? this._config?.icon_color ?? 'cool';
+    const cssVars = { ...backgroundVars(this._config?.background), ...rampVars(effectiveRamp) };
     return html`
       <ha-card style=${styleMap(cssVars)}>
         <div class="lirum-gesture-root ${fill}">

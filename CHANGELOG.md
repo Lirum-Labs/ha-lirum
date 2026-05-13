@@ -2,9 +2,16 @@
 
 All notable changes are tracked here. The project follows semver — minor bumps add new cards or non-breaking improvements, patches are bug fixes.
 
-## [Unreleased]
+## v0.2.2 — 2026-05-13
 
-- UX refinement pass on weather card forecast strip (in progress)
+### Improved — UX pass informed by Claude design
+
+- **Card frame** (`core/styles.ts`) — layered shadow stack (inner top highlight + hairline + ambient drop + tight contact), `::before` ramp-tinted backdrop (top-right wash + bottom-left bloom), `::after` top accent hairline, hover translateY(-2px) with ramp-tinted halo, `isolation: isolate` to keep stacking contained. Honors `prefers-reduced-motion`.
+- **Sparkline** (`core/spark.ts`) — gradient stroke (deep→mid→bright left-to-right), dashed baseline at the bottom, area fill that fades to transparent at the baseline, glowing endpoint halo + tip dot, per-instance unique gradient IDs so multiple sparks never share `<defs>`.
+- **Color ramps** (`core/tokens.ts`) — refined warm/energy/alert/rose/amber/neutral palettes to be more saturated against the dark surface; reads cleaner at a glance.
+- **Card → frame variable propagation** — `_renderTile` now sets `--lirum-c1/c2/c3` based on the card's icon color, so the frame's ::before tint and hover halo follow the active device-class.
+
+- **Weather card** forecast strip polish (glassy tiles, today badge, hover glow) — already shipped in v0.2.1 prep but re-tagged here for completeness.
 
 ## v0.2.1 — 2026-05-13
 

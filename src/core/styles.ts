@@ -15,27 +15,72 @@ export const lirumCardFrame = css`
   }
 
   ha-card {
+    /* "Instrument panel" card frame:
+       1. Vertical surface wash (lighter navy → deeper navy)
+       2. Layered shadows: inner top highlight, hairline border, ambient drop, tight contact
+       3. ::before — faint ramp-tinted backdrop (top-right + bottom-left radial)
+       4. ::after — top accent hairline that fades in from both sides */
     background: var(--lirum-bg);
     color: var(--lirum-text);
-    border: 1px solid var(--lirum-card-border);
     border-radius: var(--lirum-radius);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35),
-      0 0 0 1px color-mix(in oklab, currentColor 2%, transparent) inset;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 0 0 1px var(--lirum-card-border),
+      0 20px 50px -20px rgba(0, 0, 0, 0.7),
+      0 2px 10px -2px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     font-family: 'Inter', var(--primary-font-family, system-ui, sans-serif);
     position: relative;
+    isolation: isolate;
+    transition: transform 200ms ease, box-shadow 200ms ease;
   }
 
+  /* Hover lift — translateY + ramp-tinted halo. Disabled in reduced-motion. */
+  ha-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 0 0 1px color-mix(in oklab, var(--lirum-c1) 22%, transparent),
+      0 30px 60px -22px rgba(0, 0, 0, 0.75),
+      0 0 40px -16px color-mix(in oklab, var(--lirum-c1) 42%, transparent);
+  }
+
+  /* ::before — device-class tint backdrop. Top-right wash + bottom-left bloom. */
   ha-card::before {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 0;
     pointer-events: none;
-    background: radial-gradient(1px 1px at 20% 30%, color-mix(in oklab, currentColor 60%, transparent), transparent),
-      radial-gradient(1px 1px at 70% 60%, color-mix(in oklab, currentColor 40%, transparent), transparent),
-      radial-gradient(1px 1px at 40% 80%, color-mix(in oklab, currentColor 50%, transparent), transparent),
-      radial-gradient(1px 1px at 85% 20%, color-mix(in oklab, currentColor 30%, transparent), transparent);
-    opacity: 0.18;
+    background:
+      radial-gradient(120% 80% at 100% 0%,
+        color-mix(in oklab, var(--lirum-c1) 6%, transparent),
+        transparent 55%),
+      radial-gradient(60% 100% at 0% 100%,
+        color-mix(in oklab, var(--lirum-c2) 5%, transparent),
+        transparent 60%);
+  }
+
+  /* ::after — top accent hairline that softly fades in from the edges */
+  ha-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 14px;
+    right: 14px;
+    height: 1px;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+      transparent,
+      color-mix(in oklab, var(--lirum-c1) 50%, transparent),
+      transparent);
+  }
+
+  /* Direct content sits above the backdrop / hairline */
+  ha-card > * {
+    position: relative;
+    z-index: 2;
   }
 
   .error {
@@ -69,6 +114,12 @@ export const lirumCardFrame = css`
     .lirum-anim {
       animation: none !important;
       transition: none !important;
+    }
+    ha-card {
+      transition: none !important;
+    }
+    ha-card:hover {
+      transform: none !important;
     }
   }
 `;
