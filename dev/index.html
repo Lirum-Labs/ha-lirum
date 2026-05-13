@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lirum Cards · Dev preview</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <style>
+      :root {
+        --bg-0: #05070d;
+        --bg-1: #0a0f1c;
+        --bg-2: #111b30;
+        --text: #eef3ff;
+        --muted: #6b7894;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(ellipse at 50% 30%, var(--bg-2), var(--bg-0) 70%),
+          var(--bg-0);
+        color: var(--text);
+        font-family: 'Inter', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.6), transparent),
+          radial-gradient(1px 1px at 70% 60%, rgba(255, 255, 255, 0.4), transparent),
+          radial-gradient(1px 1px at 40% 80%, rgba(255, 255, 255, 0.5), transparent),
+          radial-gradient(1px 1px at 85% 20%, rgba(255, 255, 255, 0.3), transparent);
+        opacity: 0.3;
+      }
+      header {
+        position: relative;
+        z-index: 1;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 32px 24px 16px;
+      }
+      h1 {
+        margin: 0 0 4px;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.6px;
+        background: linear-gradient(90deg, #1ee0ff, #2a7bff, #c046b3);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      header p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      main {
+        position: relative;
+        z-index: 1;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 16px 24px 48px;
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 24px;
+        align-items: start;
+      }
+      @media (max-width: 1100px) {
+        main { grid-template-columns: 1fr; }
+      }
+      #grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 14px;
+      }
+      .cell {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .cell-label {
+        font-size: 11px;
+        letter-spacing: 1.4px;
+        color: var(--muted);
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .cell-host {
+        min-height: 80px;
+      }
+      .cell-host.missing {
+        padding: 14px;
+        background: rgba(255, 90, 122, 0.06);
+        border: 1px dashed rgba(255, 90, 122, 0.3);
+        border-radius: 10px;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 11px;
+        color: rgba(255, 90, 122, 0.9);
+      }
+      aside {
+        background: linear-gradient(180deg, #0b1326, #060a14);
+        border: 1px solid rgba(120, 160, 220, 0.12);
+        border-radius: 14px;
+        padding: 16px;
+        position: sticky;
+        top: 20px;
+      }
+      aside h2 {
+        margin: 0 0 8px;
+        font-size: 13px;
+        letter-spacing: 1.4px;
+        color: var(--muted);
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      #service-log {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 11px;
+        color: var(--text);
+        white-space: pre-wrap;
+        word-break: break-word;
+        max-height: 520px;
+        overflow: auto;
+      }
+      button {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 12px;
+        padding: 6px 12px;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      button:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Lirum Cards · Dev preview</h1>
+      <p>Mock <code>hass</code> with state-mutating <code>callService</code>. Click / drag controls; state mutations reflect immediately.</p>
+    </header>
+    <main>
+      <div id="grid"></div>
+      <aside>
+        <h2>Service call log</h2>
+        <pre id="service-log"></pre>
+        <button id="clear-log" type="button">Clear log</button>
+      </aside>
+    </main>
+
+    <!-- Card bundle (production-style, IIFE so dev/index.html works under file:// too). -->
+    <script src="../dist/lirum-cards.iife.js"></script>
+    <!-- Dev preview wiring. -->
+    <script src="./preview.iife.js"></script>
+  </body>
+</html>

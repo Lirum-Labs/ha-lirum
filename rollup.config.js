@@ -6,28 +6,43 @@ import terser from '@rollup/plugin-terser';
 
 const dev = process.env.ROLLUP_WATCH === 'true';
 
-export default {
-  input: 'src/lirum-cards.ts',
-  output: [
-    {
-      file: 'dist/lirum-cards.js',
-      format: 'es',
-      sourcemap: dev,
-      inlineDynamicImports: true,
-    },
-    {
-      file: 'dist/lirum-cards.iife.js',
+const sharedPlugins = () => [
+  resolve({ browser: true }),
+  commonjs(),
+  json(),
+  typescript({ tsconfig: './tsconfig.json', sourceMap: dev, inlineSources: dev }),
+  !dev && terser({ format: { comments: false } }),
+];
+
+export default [
+  {
+    input: 'src/lirum-cards.ts',
+    output: [
+      {
+        file: 'dist/lirum-cards.js',
+        format: 'es',
+        sourcemap: dev,
+        inlineDynamicImports: true,
+      },
+      {
+        file: 'dist/lirum-cards.iife.js',
+        format: 'iife',
+        name: 'HaLirum',
+        sourcemap: dev,
+        inlineDynamicImports: true,
+      },
+    ],
+    plugins: sharedPlugins(),
+  },
+  {
+    input: 'dev/preview.ts',
+    output: {
+      file: 'dev/preview.iife.js',
       format: 'iife',
-      name: 'HaLirum',
+      name: 'HaLirumDev',
       sourcemap: dev,
       inlineDynamicImports: true,
     },
-  ],
-  plugins: [
-    resolve({ browser: true }),
-    commonjs(),
-    json(),
-    typescript({ tsconfig: './tsconfig.json', sourceMap: dev, inlineSources: dev }),
-    !dev && terser({ format: { comments: false } }),
-  ],
-};
+    plugins: sharedPlugins(),
+  },
+];
