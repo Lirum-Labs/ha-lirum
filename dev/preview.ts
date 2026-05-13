@@ -56,6 +56,47 @@ const SPECS: CardSpec[] = [
     icon: 'mdi:thermometer',
     icon_color: 'cool',
   } },
+
+  // Wave E — sensor / button / scene / script
+  { label: 'Sensor (temp)', tag: 'lirum-sensor-card', config: { type: 'custom:lirum-sensor-card', entity: 'sensor.outside_temp' } },
+  { label: 'Sensor (battery low)', tag: 'lirum-sensor-card', config: { type: 'custom:lirum-sensor-card', entity: 'sensor.phone_battery', show_bar: true } },
+  { label: 'Sensor (power, trend)', tag: 'lirum-sensor-card', config: { type: 'custom:lirum-sensor-card', entity: 'sensor.solar_power', show_trend: true, trend_points: [2100, 2200, 2350, 2420, 2480, 2460, 2510] } },
+  { label: 'Binary sensor (motion)', tag: 'lirum-sensor-card', config: { type: 'custom:lirum-sensor-card', entity: 'binary_sensor.motion_hall' } },
+  { label: 'Button', tag: 'lirum-button-card', config: { type: 'custom:lirum-button-card', entity: 'button.restart_router', name: 'Restart Router', secondary: 'Last triggered: never' } },
+  { label: 'Scene', tag: 'lirum-scene-card', config: { type: 'custom:lirum-scene-card', entity: 'scene.movie_time' } },
+  { label: 'Scene (never)', tag: 'lirum-scene-card', config: { type: 'custom:lirum-scene-card', entity: 'scene.morning' } },
+  { label: 'Script (idle)', tag: 'lirum-script-card', config: { type: 'custom:lirum-script-card', entity: 'script.bedtime_routine' } },
+  { label: 'Script (running)', tag: 'lirum-script-card', config: { type: 'custom:lirum-script-card', entity: 'script.run_now' } },
+
+  // Wave F — camera / weather / gauge / tile
+  { label: 'Camera', tag: 'lirum-camera-card', config: { type: 'custom:lirum-camera-card', entity: 'camera.front_door' } },
+  { label: 'Weather', tag: 'lirum-weather-card', config: { type: 'custom:lirum-weather-card', entity: 'weather.home' } },
+  { label: 'Gauge (power)', tag: 'lirum-gauge-card', config: { type: 'custom:lirum-gauge-card', entity: 'sensor.solar_power', min: 0, max: 5000, unit: 'W', label: 'SOLAR' } },
+  { label: 'Tile (sensor)', tag: 'lirum-tile-card', config: { type: 'custom:lirum-tile-card', entity: 'sensor.outside_temp', label: 'Outside', show_spark: true, spark_points: [12.1, 12.3, 12.6, 13.0, 13.4, 13.9, 14.2] } },
+
+  // Wave G — layout containers
+  { label: 'Markdown', tag: 'lirum-markdown-card', config: { type: 'custom:lirum-markdown-card', title: 'About', content: "**Lirum Cards** is a Mushroom-equivalent suite with the look of [ha-power-gauge](https://github.com/Lirum-Labs/ha-power-gauge).\n\n- 31 card types\n- shared design system\n- works in `light` and `dark` HA themes" } },
+  { label: 'Stack (vertical)', tag: 'lirum-stack-card', config: {
+    type: 'custom:lirum-stack-card', title: 'Pair', direction: 'vertical',
+    cards: [
+      { type: 'custom:lirum-switch-card', entity: 'switch.fan_corner' },
+      { type: 'custom:lirum-switch-card', entity: 'switch.coffee_maker' },
+    ],
+  } },
+  { label: 'Grid (2 col)', tag: 'lirum-grid-card', config: {
+    type: 'custom:lirum-grid-card', columns: 2, gap: 10,
+    cards: [
+      { type: 'custom:lirum-tile-card', entity: 'sensor.outside_temp', label: 'Out' },
+      { type: 'custom:lirum-tile-card', entity: 'sensor.kitchen_humidity', label: 'Kit' },
+      { type: 'custom:lirum-tile-card', entity: 'sensor.phone_battery', label: 'Bat' },
+      { type: 'custom:lirum-tile-card', entity: 'sensor.solar_power', label: 'Sun' },
+    ],
+  } },
+  { label: 'Conditional (lit on)', tag: 'lirum-conditional-card', config: {
+    type: 'custom:lirum-conditional-card',
+    conditions: [{ condition: 'state', entity: 'light.living_room', state: 'on' }],
+    card: { type: 'custom:lirum-light-card', entity: 'light.living_room', show_brightness_control: true },
+  } },
 ];
 
 interface CardElement extends HTMLElement {

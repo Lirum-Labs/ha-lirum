@@ -164,11 +164,63 @@ const ENTITIES: HassEntity[] = [
     unit_of_measurement: '°C',
     device_class: 'temperature',
   }),
+  makeEntity('sensor.kitchen_humidity', '42', {
+    friendly_name: 'Kitchen Humidity',
+    unit_of_measurement: '%',
+    device_class: 'humidity',
+  }),
+  makeEntity('sensor.phone_battery', '18', {
+    friendly_name: 'Phone Battery',
+    unit_of_measurement: '%',
+    device_class: 'battery',
+  }),
+  makeEntity('sensor.solar_power', '2480', {
+    friendly_name: 'Solar Power',
+    unit_of_measurement: 'W',
+    device_class: 'power',
+  }),
+  makeEntity('binary_sensor.motion_hall', 'on', {
+    friendly_name: 'Hallway Motion',
+    device_class: 'motion',
+  }),
+  makeEntity('binary_sensor.window_office', 'off', {
+    friendly_name: 'Office Window',
+    device_class: 'window',
+  }),
   makeEntity('weather.home', 'partlycloudy', {
     friendly_name: 'Home Weather',
     temperature: 14.2,
+    temperature_unit: '°C',
     humidity: 64,
+    pressure: 1014,
+    pressure_unit: 'hPa',
+    wind_speed: 12,
+    wind_speed_unit: 'km/h',
+    forecast: [
+      { datetime: new Date(Date.now() + 1 * 864e5).toISOString(), condition: 'sunny',       temperature: 19, templow: 8 },
+      { datetime: new Date(Date.now() + 2 * 864e5).toISOString(), condition: 'partlycloudy',temperature: 17, templow: 9 },
+      { datetime: new Date(Date.now() + 3 * 864e5).toISOString(), condition: 'rainy',       temperature: 14, templow: 10 },
+      { datetime: new Date(Date.now() + 4 * 864e5).toISOString(), condition: 'cloudy',      temperature: 13, templow: 7 },
+      { datetime: new Date(Date.now() + 5 * 864e5).toISOString(), condition: 'sunny',       temperature: 18, templow: 6 },
+    ],
   }),
+  // Camera
+  makeEntity('camera.front_door', 'idle', {
+    friendly_name: 'Front Door',
+    entity_picture: 'https://picsum.photos/seed/lirum-door/640/360',
+  }),
+  // Scene / script / button
+  makeEntity('scene.movie_time', '2026-05-12T22:14:00.000Z', { friendly_name: 'Movie Time' }),
+  makeEntity('scene.morning', 'unknown', { friendly_name: 'Morning' }),
+  makeEntity('script.bedtime_routine', 'off', {
+    friendly_name: 'Bedtime Routine',
+    last_triggered: new Date(Date.now() - 8 * 60 * 1000).toISOString(),
+  }),
+  makeEntity('script.run_now', 'on', {
+    friendly_name: 'Running Script',
+    last_triggered: new Date(Date.now() - 30 * 1000).toISOString(),
+  }),
+  makeEntity('button.restart_router', 'unknown', { friendly_name: 'Restart Router' }),
 ];
 
 export function makeMockHass(): HomeAssistant {
