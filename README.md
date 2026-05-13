@@ -67,17 +67,17 @@ Per-card configuration reference lives in [`docs/cards/`](docs/cards/).
 
 ### Direct from JSDelivr
 
-Once a release is tagged:
-
-```
-URL: https://cdn.jsdelivr.net/gh/Lirum-Labs/ha-lirum@v0.2.0/dist/lirum-cards.js
-Type: module
-```
-
-Or pin to a major+minor range so minor releases pick up automatically:
+Recommended — pin to the current minor branch so patch releases ship automatically:
 
 ```
 URL: https://cdn.jsdelivr.net/gh/Lirum-Labs/ha-lirum@v0.2/dist/lirum-cards.js
+Type: module
+```
+
+Or pin to an exact version:
+
+```
+URL: https://cdn.jsdelivr.net/gh/Lirum-Labs/ha-lirum@v0.2.1/dist/lirum-cards.js
 ```
 
 ## Quick example
