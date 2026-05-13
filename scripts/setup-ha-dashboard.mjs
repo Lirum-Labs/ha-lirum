@@ -127,6 +127,14 @@ function buildDashboard(states) {
   const weather = E('weather');
 
   const tempSensor = states.find((s) => s.entity_id.startsWith('sensor.') && s.attributes.device_class === 'temperature')?.entity_id;
+  const batterySensor = states.find((s) => s.entity_id.startsWith('sensor.') && s.attributes.device_class === 'battery')?.entity_id;
+  const humiditySensor = states.find((s) => s.entity_id.startsWith('sensor.') && s.attributes.device_class === 'humidity')?.entity_id;
+  const powerSensor = states.find((s) => s.entity_id.startsWith('sensor.') && s.attributes.device_class === 'power')?.entity_id;
+  const motionSensor = states.find((s) => s.entity_id.startsWith('binary_sensor.') && s.attributes.device_class === 'motion')?.entity_id;
+  const button = E('button');
+  const scene = E('scene');
+  const script = E('script');
+  const camera = E('camera');
 
   /** Build a card config only when the entity exists. */
   const card = (type, entity, extra = {}) => entity ? { type: `custom:${type}`, entity, ...extra } : null;
@@ -183,6 +191,67 @@ function buildDashboard(states) {
   ].filter(Boolean);
   if (numbers.length > 1) sections.push({ type: 'grid', cards: numbers });
 
+  // Visuals section — weather / camera / gauge / KPI tiles
+  const visuals = [
+    { type: 'custom:lirum-title-card', title: 'At a glance', alignment: 'start' },
+    card('lirum-weather-card', weather, { show_forecast: true, forecast_days: 5, show_details: true }),
+    card('lirum-camera-card', camera, { aspect_ratio: '16:9', show_state: true, show_name: true }),
+    powerSensor ? { type: 'custom:lirum-gauge-card', entity: powerSensor, min: 0, max: 5000, unit: 'W', label: 'POWER', size: 200 } : null,
+  ].filter(Boolean);
+  if (visuals.length > 1) sections.push({ type: 'grid', cards: visuals });
+
+  // Tile grid — 4 KPI tiles, one per sensor class we found
+  const tiles = [
+    tempSensor ? { type: 'custom:lirum-tile-card', entity: tempSensor, label: 'Outside', decimals: 1 } : null,
+    humiditySensor ? { type: 'custom:lirum-tile-card', entity: humiditySensor, label: 'Humidity', decimals: 0 } : null,
+    batterySensor ? { type: 'custom:lirum-tile-card', entity: batterySensor, label: 'Battery', decimals: 0 } : null,
+    powerSensor ? { type: 'custom:lirum-tile-card', entity: powerSensor, label: 'Power', decimals: 0 } : null,
+  ].filter(Boolean);
+  if (tiles.length > 0) {
+    sections.push({ type: 'grid', cards: [
+      { type: 'custom:lirum-title-card', title: 'Sensors', alignment: 'start' },
+      { type: 'custom:lirum-grid-card', columns: Math.min(4, tiles.length), gap: 10, cards: tiles },
+    ]});
+  }
+
+  // Quick actions — button / scene / script
+  const actions = [
+    { type: 'custom:lirum-title-card', title: 'Quick actions', alignment: 'start' },
+    card('lirum-button-card', button),
+    card('lirum-scene-card', scene),
+    card('lirum-script-card', script),
+  ].filter(Boolean);
+  if (actions.length > 1) sections.push({ type: 'grid', cards: actions });
+
+  // Conditional showcase — if motion sensor is on, show a friendly banner
+  if (motionSensor) {
+    sections.push({ type: 'grid', cards: [
+      {
+        type: 'custom:lirum-conditional-card',
+        conditions: [{ condition: 'state', entity: motionSensor, state: 'on' }],
+        card: {
+          type: 'custom:lirum-markdown-card',
+          title: 'Motion detected',
+          content: `**${motionSensor}** is currently active. This card only renders while motion is on.`,
+        },
+      },
+    ]});
+  }
+
+  // Notes / markdown section
+  sections.push({ type: 'grid', cards: [
+    {
+      type: 'custom:lirum-markdown-card',
+      title: 'Lirum Showcase',
+      content: `Auto-generated from your real entities at ${new Date().toISOString().slice(0, 16).replace('T', ' ')}.
+
+- Lirum Cards v${'0.2.0'} · 31 card types
+- Resource: jsdelivr ` + '`@main`' + ` (auto-tracks the main branch)
+- Want different entities? Re-run \`scripts/setup-ha-dashboard.mjs\` or edit this dashboard directly.`,
+    },
+  ]});
+
+  // Chips row at the bottom for quick toggles
   const chipsRow = [];
   if (sw) chipsRow.push({ type: 'entity', entity: sw, icon: 'mdi:flash' });
   if (lightOn) chipsRow.push({ type: 'entity', entity: lightOn, icon: 'mdi:lightbulb' });
