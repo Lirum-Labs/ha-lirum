@@ -2,6 +2,15 @@
 
 All notable changes are tracked here. The project follows semver — minor bumps add new cards or non-breaking improvements, patches are bug fixes.
 
+## v0.2.3 — 2026-05-13
+
+### Fixed
+- **Layout cards propagate transparency to children.** When `lirum-stack-card` or `lirum-grid-card` is set to `background: 'transparent'` (or `'theme'`), any nested `custom:lirum-*` child that doesn't specify its own background inherits the parent's transparent value. Previously, switching a layout card to theme-adaptive left its children rendering with the dark-glow surface — meaning white text on a light HA theme was invisible.
+- **Showcase variant toggle now recursive.** `dev/showcase.html`'s Blended toggle walks nested `cards`/`card` configs (stack / grid / conditional) and applies `background: transparent` at every level, so every card in every scene reads cleanly against the light page.
+
+### New helper
+- `propagateBackground(parentBg, childConfig)` in `core/hass.ts` — shared utility used by the layout cards to forward theme-adaptive surfaces down the card tree.
+
 ## v0.2.2 — 2026-05-13
 
 ### Improved — UX pass informed by Claude design

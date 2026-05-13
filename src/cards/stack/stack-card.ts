@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { LirumBaseConfig } from '../../core/hass';
+import { propagateBackground, type LirumBaseConfig } from '../../core/hass';
 
 export interface StackChildConfig {
   type: string;
@@ -70,7 +70,7 @@ export class LirumStackCard extends LirumCardBase<StackConfig & LirumBaseConfig>
     const next: StackChildElement[] = [];
     let mutated = false;
     for (let i = 0; i < cards.length; i++) {
-      const cfg = cards[i] as StackChildConfig;
+      const cfg = propagateBackground(this._config.background, cards[i] as StackChildConfig);
       const desiredTag = this._resolveTag(cfg.type);
       const existing = this._childElements[i];
       if (existing && existing.localName === desiredTag) {

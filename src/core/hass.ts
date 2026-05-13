@@ -123,3 +123,24 @@ export function supportsFeature(stateObj: HassEntity | undefined, feature: numbe
   const sf = stateObj?.attributes.supported_features;
   return typeof sf === 'number' && (sf & feature) !== 0;
 }
+
+/**
+ * For layout cards (stack / grid / conditional): when the parent's
+ * background is set to `transparent` or `theme` (the theme-adaptive modes),
+ * propagate the same background to any lirum child that doesn't explicitly
+ * set its own. This way users can flip a whole section to theme-adaptive
+ * by setting `background` once on the wrapper, without having to repeat it
+ * on every nested card.
+ *
+ * Non-lirum children (HA built-ins) are untouched.
+ */
+export function propagateBackground<T extends { type?: string; background?: string }>(
+  parentBg: string | undefined,
+  child: T,
+): T {
+  if (parentBg !== 'transparent' && parentBg !== 'theme') return child;
+  if (typeof child.type !== 'string') return child;
+  if (!child.type.startsWith('custom:lirum-')) return child;
+  if (child.background !== undefined) return child;
+  return { ...child, background: parentBg };
+}

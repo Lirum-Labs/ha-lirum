@@ -234,13 +234,30 @@ function mountCard(spec: CardSpec, host: HTMLElement): CardElement | null {
   return el;
 }
 
+/**
+ * Apply the active variant to a card config tree. In `blended` mode, every
+ * lirum card (including nested children inside stack / grid / conditional)
+ * gets `background: 'transparent'` so it adopts the HA theme. In `glow`
+ * mode the background key is removed so the default dark-glow returns.
+ */
 function applyVariant(cfg: Record<string, unknown>): Record<string, unknown> {
-  if (blended && typeof cfg.type === 'string' && cfg.type.startsWith('custom:lirum-')) {
-    cfg.background = 'transparent';
-  } else if (!blended) {
-    delete cfg.background;
-  }
-  return cfg;
+  const walk = (n: unknown): unknown => {
+    if (Array.isArray(n)) return n.map(walk);
+    if (n && typeof n === 'object') {
+      const out: Record<string, unknown> = { ...(n as Record<string, unknown>) };
+      const isLirum = typeof out.type === 'string' && (out.type as string).startsWith('custom:lirum-');
+      if (isLirum) {
+        if (blended) out.background = 'transparent';
+        else delete out.background;
+      }
+      for (const k of Object.keys(out)) {
+        out[k] = walk(out[k]);
+      }
+      return out;
+    }
+    return n;
+  };
+  return walk(cfg) as Record<string, unknown>;
 }
 
 function buildScene(scene: Scene): HTMLElement {

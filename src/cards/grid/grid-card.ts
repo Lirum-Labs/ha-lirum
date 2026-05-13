@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { HomeAssistant, LirumBaseConfig } from '../../core/hass';
+import { propagateBackground, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 
 export interface GridConfig {
   type: string;
@@ -67,7 +67,8 @@ export class LirumGridCard extends LirumCardBase<GridConfig & LirumBaseConfig> {
     const cards = this._config?.cards ?? [];
     if (cards !== this._builtFromCards) {
       this._builtFromCards = cards;
-      this._childElements = cards.map((c) => this._createChild(c));
+      const parentBg = this._config?.background;
+      this._childElements = cards.map((c) => this._createChild(propagateBackground(parentBg, c)));
     }
     for (const el of this._childElements) {
       (el as HassLitElement).hass = this.hass;
