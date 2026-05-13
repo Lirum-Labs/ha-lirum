@@ -1,6 +1,6 @@
 # Lirum Cards
 
-Glowing, animated Lovelace cards for Home Assistant — Mushroom-equivalent controls with the visual identity of [ha-power-gauge](https://github.com/Lirum-Labs/ha-power-gauge).
+Glowing, animated Lovelace cards for Home Assistant — **31 cards** spanning controls, sensors, layouts, and rich visuals, all sharing the design language of [ha-power-gauge](https://github.com/Lirum-Labs/ha-power-gauge).
 
 [![Release](https://img.shields.io/github/v/release/Lirum-Labs/ha-lirum?display_name=tag&sort=semver&logo=github&color=4A90D9)](https://github.com/Lirum-Labs/ha-lirum/releases)
 [![License](https://img.shields.io/badge/license-Apache_2.0-blue)](LICENSE)
@@ -14,17 +14,19 @@ Dark-glow by default. Set `background: transparent` on any card and the suite ad
 
 ## Cards
 
+### Entity-bound
+
 | Card | Tag | Purpose |
 |---|---|---|
 | Entity | `lirum-entity-card` | Universal entity display |
 | Light | `lirum-light-card` | Brightness, color temp, color picker |
 | Switch | `lirum-switch-card` | Toggleable switches and booleans |
 | Cover | `lirum-cover-card` | Blinds, garage doors, position + tilt |
-| Climate | `lirum-climate-card` | Thermostat with HVAC modes |
-| Fan | `lirum-fan-card` | Fan speed + oscillation |
+| Climate | `lirum-climate-card` | Thermostat with HVAC modes + mini gauge |
+| Fan | `lirum-fan-card` | Fan speed + oscillation, spinning icon |
 | Media | `lirum-media-card` | Media player with transport controls |
 | Lock | `lirum-lock-card` | Locks |
-| Person | `lirum-person-card` | Person presence |
+| Person | `lirum-person-card` | Person presence + avatar |
 | Number | `lirum-number-card` | `input_number` / `number` slider |
 | Slider | `lirum-slider-card` | Generic value slider |
 | Select | `lirum-select-card` | `select` / `input_select` |
@@ -32,9 +34,26 @@ Dark-glow by default. Set `background: transparent` on any card and the suite ad
 | Update | `lirum-update-card` | Available updates |
 | Humidifier | `lirum-humidifier-card` | Humidity control |
 | Alarm | `lirum-alarm-card` | Alarm panels with keypad |
+| **Sensor** | `lirum-sensor-card` | Sensor / binary_sensor with device-class formatting + optional sparkline |
+| **Button** | `lirum-button-card` | Single-press buttons with hero tap target |
+| **Scene** | `lirum-scene-card` | One-tap scene activation with last-fired time |
+| **Script** | `lirum-script-card` | Run a script, shows running-state pulse |
+| **Camera** | `lirum-camera-card` | Snapshot frame with name/state pills |
+| **Weather** | `lirum-weather-card` | Current conditions + multi-day forecast strip |
+| **Gauge** | `lirum-gauge-card` | Radial gauge for any numeric entity |
+| **Tile** | `lirum-tile-card` | KPI tile with big number + optional sparkline |
+
+### Layout & content
+
+| Card | Tag | Purpose |
+|---|---|---|
 | Chips | `lirum-chips-card` | Pill row of mini-entities |
 | Title | `lirum-title-card` | Section headers |
-| Template | `lirum-template-card` | Jinja-rendered free-form card |
+| Template | `lirum-template-card` | Jinja-style template (`states`, `state_attr`, `is_state`, `is_state_attr`, simple `{% if %}`) |
+| **Stack** | `lirum-stack-card` | Vertical or horizontal stack of any cards |
+| **Grid** | `lirum-grid-card` | Uniform-column grid of cards |
+| **Conditional** | `lirum-conditional-card` | Show inner card only when conditions match |
+| **Markdown** | `lirum-markdown-card` | Markdown-rendered text content |
 
 Per-card configuration reference lives in [`docs/cards/`](docs/cards/).
 
@@ -51,8 +70,14 @@ Per-card configuration reference lives in [`docs/cards/`](docs/cards/).
 Once a release is tagged:
 
 ```
-URL: https://cdn.jsdelivr.net/gh/Lirum-Labs/ha-lirum@v0.1.0/dist/lirum-cards.js
+URL: https://cdn.jsdelivr.net/gh/Lirum-Labs/ha-lirum@v0.2.0/dist/lirum-cards.js
 Type: module
+```
+
+Or pin to a major+minor range so minor releases pick up automatically:
+
+```
+URL: https://cdn.jsdelivr.net/gh/Lirum-Labs/ha-lirum@v0.2/dist/lirum-cards.js
 ```
 
 ## Quick example
