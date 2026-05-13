@@ -58,6 +58,7 @@ export class LirumTileCard extends LirumCardBase<TileConfig> {
     if (!state) return this._renderError(`Entity not found: ${this._config.entity}`);
 
     const raw = state.state;
+    const unavailable = raw === 'unavailable' || raw === 'unknown';
     const value = Number(raw);
     const isNumeric = !isNaN(value);
     const unit = this._config.unit ?? (typeof state.attributes.unit_of_measurement === 'string' ? state.attributes.unit_of_measurement : '');
@@ -75,7 +76,7 @@ export class LirumTileCard extends LirumCardBase<TileConfig> {
       trend = delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat';
     }
 
-    const displayValue = isNumeric ? value.toFixed(decimals) : raw;
+    const displayValue = unavailable ? '–' : isNumeric ? value.toFixed(decimals) : raw;
     const showSpark = !!this._config.show_spark
       && Array.isArray(this._config.spark_points)
       && this._config.spark_points.length >= 2;

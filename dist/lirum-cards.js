@@ -1606,29 +1606,29 @@ const t={entity:{tag:"lirum-entity-card",editor:"lirum-entity-card-editor",name:
         text-align: center;
         letter-spacing: 0.2px;
       }
-    `]}};We=e([i(t.gauge.tag)],We),(window.customCards=window.customCards??[]).push({type:t.tile.tag,name:t.tile.name,description:t.tile.desc,preview:!0,documentationURL:"https://github.com/Lirum-Labs/ha-lirum"});let Ye=class extends Bt{static async getConfigElement(){return await Promise.resolve().then(function(){return ir}),document.createElement(t.tile.editor)}static getStubConfig(){return{type:`custom:${t.tile.tag}`,entity:""}}setConfig(t){if(!t.entity)throw new Error("You need to define an entity");super.setConfig(t)}getCardSize(){return 2}render(){if(!this.hass||!this._config)return Q;const t=this._stateObj();if(!t)return this._renderError(`Entity not found: ${this._config.entity}`);const e=t.state,i=Number(e),o=!isNaN(i),r=this._config.unit??("string"==typeof t.attributes.unit_of_measurement?t.attributes.unit_of_measurement:""),n=this._config.decimals??1,s=this._config.label??this._defaultPrimary(),a=this._config.icon_color??"cool",c=this._defaultIcon();let l=this._config.trend??"";if(!l&&Array.isArray(this._config.spark_points)&&this._config.spark_points.length>=2){const t=this._config.spark_points,e=t[t.length-1]-t[t.length-2];l=e>0?"up":e<0?"down":"flat"}const d=o?i.toFixed(n):e,h=!!this._config.show_spark&&Array.isArray(this._config.spark_points)&&this._config.spark_points.length>=2,u=Rt(this._config.background),m=this._config.fill_container?"fill":"";return J`
-      <ha-card style=${xt(u)}>
-        <div class="lirum-gesture-root ${m}">
+    `]}};We=e([i(t.gauge.tag)],We),(window.customCards=window.customCards??[]).push({type:t.tile.tag,name:t.tile.name,description:t.tile.desc,preview:!0,documentationURL:"https://github.com/Lirum-Labs/ha-lirum"});let Ye=class extends Bt{static async getConfigElement(){return await Promise.resolve().then(function(){return ir}),document.createElement(t.tile.editor)}static getStubConfig(){return{type:`custom:${t.tile.tag}`,entity:""}}setConfig(t){if(!t.entity)throw new Error("You need to define an entity");super.setConfig(t)}getCardSize(){return 2}render(){if(!this.hass||!this._config)return Q;const t=this._stateObj();if(!t)return this._renderError(`Entity not found: ${this._config.entity}`);const e=t.state,i="unavailable"===e||"unknown"===e,o=Number(e),r=!isNaN(o),n=this._config.unit??("string"==typeof t.attributes.unit_of_measurement?t.attributes.unit_of_measurement:""),s=this._config.decimals??1,a=this._config.label??this._defaultPrimary(),c=this._config.icon_color??"cool",l=this._defaultIcon();let d=this._config.trend??"";if(!d&&Array.isArray(this._config.spark_points)&&this._config.spark_points.length>=2){const t=this._config.spark_points,e=t[t.length-1]-t[t.length-2];d=e>0?"up":e<0?"down":"flat"}const h=i?"–":r?o.toFixed(s):e,u=!!this._config.show_spark&&Array.isArray(this._config.spark_points)&&this._config.spark_points.length>=2,m=Rt(this._config.background),p=this._config.fill_container?"fill":"";return J`
+      <ha-card style=${xt(m)}>
+        <div class="lirum-gesture-root ${p}">
           <div class="tile">
             <div class="header">
               <lirum-icon
-                .icon=${c}
-                .colorRamp=${a}
+                .icon=${l}
+                .colorRamp=${c}
                 .active=${this._isActive()}
                 .unavailable=${this._isUnavailable()}
               ></lirum-icon>
               <ha-icon class="chevron" icon="mdi:chevron-right"></ha-icon>
             </div>
             <lirum-stat
-              .value=${d}
-              .unit=${r}
-              .label=${s}
-              .trend=${l}
-              .colorRamp=${a}
+              .value=${h}
+              .unit=${n}
+              .label=${a}
+              .trend=${d}
+              .colorRamp=${c}
             ></lirum-stat>
-            ${h?J`<lirum-spark
+            ${u?J`<lirum-spark
                   .points=${this._config.spark_points}
-                  .colorRamp=${a}
+                  .colorRamp=${c}
                 ></lirum-spark>`:Q}
           </div>
         </div>
@@ -1802,7 +1802,7 @@ const t={entity:{tag:"lirum-entity-card",editor:"lirum-entity-card-editor",name:
         color: var(--lirum-text);
         letter-spacing: -0.3px;
       }
-    `]}};oi=e([i(t.markdown.tag)],oi);const ri=Object.keys(t).length,ni=["#1ee0ff","#2a7bff","#0a3aa0"];console.info(`%c LIRUM %c v0.2.0 %c ${ri} cards `,`background:${ni[2]};color:white;padding:2px 6px;border-radius:3px 0 0 3px;font-weight:600`,`background:${ni[1]};color:white;padding:2px 6px`,`background:${ni[0]};color:#001020;padding:2px 6px;border-radius:0 3px 3px 0`);const si=(t,e)=>({name:"",type:"expandable",title:e,schema:[{name:t,selector:{ui_action:{actions:["more-info","toggle","navigate","url","call-service","assist","none"]}}}]}),ai=[{value:"cool",label:"Cool (cyan→blue)"},{value:"warm",label:"Warm (orange)"},{value:"energy",label:"Energy (green)"},{value:"alert",label:"Alert (red)"},{value:"rose",label:"Rose (pink)"},{value:"amber",label:"Amber (yellow)"},{value:"neutral",label:"Neutral"}];function ci(){return{name:"",type:"expandable",title:"Appearance",schema:[{name:"",type:"grid",schema:[{name:"layout",selector:{select:{mode:"dropdown",options:[{value:"default",label:"Default"},{value:"horizontal",label:"Horizontal"},{value:"vertical",label:"Vertical"}]}}},{name:"fill_container",selector:{boolean:{}}}]},{name:"",type:"grid",schema:[{name:"icon_color",selector:{select:{mode:"dropdown",custom_value:!0,options:ai}}},{name:"background",selector:{text:{}}}]}]}}function li(){return{name:"",type:"expandable",title:"Interactions",schema:[si("tap_action","Tap behavior"),si("hold_action","Hold behavior"),si("double_tap_action","Double-tap behavior")]}}const di={entity:"Entity",name:"Custom name",icon:"Icon (mdi:…)",icon_color:"Icon color",layout:"Layout",fill_container:"Fill container",background:'Background (CSS / "transparent")',tap_action:"Tap action",hold_action:"Hold action",double_tap_action:"Double-tap action",title:"Title",subtitle:"Subtitle",alignment:"Alignment"};function hi(t){return[{name:"entity",required:!0,selector:t.length>0?{entity:{domain:t}}:{entity:{}}},{name:"",type:"grid",schema:[{name:"name",selector:{text:{}}},{name:"icon",selector:{icon:{}}}]}]}const ui=[...hi([]),ci(),li()];let mi=class extends gt{constructor(){super(...arguments),this._computeLabel=t=>di[t.name]??t.name}setConfig(t){this._config=t}render(){return this.hass&&this._config?J`
+    `]}};oi=e([i(t.markdown.tag)],oi);const ri=Object.keys(t).length,ni=["#1ee0ff","#2a7bff","#0a3aa0"];console.info(`%c LIRUM %c v0.2.1 %c ${ri} cards `,`background:${ni[2]};color:white;padding:2px 6px;border-radius:3px 0 0 3px;font-weight:600`,`background:${ni[1]};color:white;padding:2px 6px`,`background:${ni[0]};color:#001020;padding:2px 6px;border-radius:0 3px 3px 0`);const si=(t,e)=>({name:"",type:"expandable",title:e,schema:[{name:t,selector:{ui_action:{actions:["more-info","toggle","navigate","url","call-service","assist","none"]}}}]}),ai=[{value:"cool",label:"Cool (cyan→blue)"},{value:"warm",label:"Warm (orange)"},{value:"energy",label:"Energy (green)"},{value:"alert",label:"Alert (red)"},{value:"rose",label:"Rose (pink)"},{value:"amber",label:"Amber (yellow)"},{value:"neutral",label:"Neutral"}];function ci(){return{name:"",type:"expandable",title:"Appearance",schema:[{name:"",type:"grid",schema:[{name:"layout",selector:{select:{mode:"dropdown",options:[{value:"default",label:"Default"},{value:"horizontal",label:"Horizontal"},{value:"vertical",label:"Vertical"}]}}},{name:"fill_container",selector:{boolean:{}}}]},{name:"",type:"grid",schema:[{name:"icon_color",selector:{select:{mode:"dropdown",custom_value:!0,options:ai}}},{name:"background",selector:{text:{}}}]}]}}function li(){return{name:"",type:"expandable",title:"Interactions",schema:[si("tap_action","Tap behavior"),si("hold_action","Hold behavior"),si("double_tap_action","Double-tap behavior")]}}const di={entity:"Entity",name:"Custom name",icon:"Icon (mdi:…)",icon_color:"Icon color",layout:"Layout",fill_container:"Fill container",background:'Background (CSS / "transparent")',tap_action:"Tap action",hold_action:"Hold action",double_tap_action:"Double-tap action",title:"Title",subtitle:"Subtitle",alignment:"Alignment"};function hi(t){return[{name:"entity",required:!0,selector:t.length>0?{entity:{domain:t}}:{entity:{}}},{name:"",type:"grid",schema:[{name:"name",selector:{text:{}}},{name:"icon",selector:{icon:{}}}]}]}const ui=[...hi([]),ci(),li()];let mi=class extends gt{constructor(){super(...arguments),this._computeLabel=t=>di[t.name]??t.name}setConfig(t){this._config=t}render(){return this.hass&&this._config?J`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
