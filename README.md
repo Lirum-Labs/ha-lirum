@@ -12,6 +12,23 @@ A single HACS bundle that registers a complete suite of Lovelace cards — light
 
 Dark-glow by default. Set `background: transparent` on any card and the suite adopts HA's theme colors instead.
 
+## Screenshots
+
+Theme × Variant — top of the standalone showcase page.
+
+| | Dark-glow (signature) | Blended (theme-adaptive) |
+|---|---|---|
+| **Dark theme** | ![](docs/screenshots/showcase-dark-glow-top.png) | ![](docs/screenshots/showcase-dark-blended-top.png) |
+| **Light theme** | ![](docs/screenshots/showcase-light-glow-top.png) | ![](docs/screenshots/showcase-light-blended-top.png) |
+
+The same scenes also render correctly inside layout containers. **Compositions** section in Dark-glow vs Light+Blended:
+
+| Dark-glow | Light + Blended |
+|---|---|
+| ![](docs/screenshots/showcase-dark-glow-compositions.png) | ![](docs/screenshots/showcase-light-blended-compositions.png) |
+
+See the [showcase page](dev/showcase.html) for the full demo (`npm run dev`, then open `http://localhost:8000/dev/showcase.html`).
+
 ## Cards
 
 ### Entity-bound
