@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/slider';
 import '../../core/chip';
 
@@ -33,8 +33,13 @@ export class LirumHumidifierCard extends LirumCardBase<HumidifierConfig> {
     return document.createElement(CARDS.humidifier.editor);
   }
 
-  public static getStubConfig(): Partial<HumidifierConfig> {
-    return { type: `custom:${CARDS.humidifier.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<HumidifierConfig> {
+    const entity = pickStubEntity(hass, fallback, ['humidifier']);
+    return { type: `custom:${CARDS.humidifier.tag}`, entity };
   }
 
   public setConfig(config: HumidifierConfig): void {

@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/slider';
 import '../../core/chip';
 import './climate-ring';
@@ -59,8 +59,13 @@ export class LirumClimateCard extends LirumCardBase<ClimateConfig> {
     return document.createElement(CARDS.climate.editor);
   }
 
-  public static getStubConfig(): Partial<ClimateConfig> {
-    return { type: `custom:${CARDS.climate.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<ClimateConfig> {
+    const entity = pickStubEntity(hass, fallback, ['climate']);
+    return { type: `custom:${CARDS.climate.tag}`, entity };
   }
 
   public setConfig(config: ClimateConfig): void {

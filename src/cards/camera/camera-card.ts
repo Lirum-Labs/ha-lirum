@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/icon-display';
 
 declare global {
@@ -43,8 +43,13 @@ export class LirumCameraCard extends LirumCardBase<CameraConfig> {
     return document.createElement(CARDS.camera.editor);
   }
 
-  public static getStubConfig(): Partial<CameraConfig> {
-    return { type: `custom:${CARDS.camera.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<CameraConfig> {
+    const entity = pickStubEntity(hass, fallback, ['camera']);
+    return { type: `custom:${CARDS.camera.tag}`, entity };
   }
 
   public setConfig(config: CameraConfig): void {

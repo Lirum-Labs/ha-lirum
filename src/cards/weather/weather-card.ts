@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/stat';
 
 declare global {
@@ -91,8 +91,13 @@ export class LirumWeatherCard extends LirumCardBase<WeatherConfig> {
     return document.createElement(CARDS.weather.editor);
   }
 
-  public static getStubConfig(): Partial<WeatherConfig> {
-    return { type: `custom:${CARDS.weather.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<WeatherConfig> {
+    const entity = pickStubEntity(hass, fallback, ['weather']);
+    return { type: `custom:${CARDS.weather.tag}`, entity };
   }
 
   public setConfig(config: WeatherConfig): void {

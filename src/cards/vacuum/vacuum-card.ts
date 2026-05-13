@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import { supportsFeature, type LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, supportsFeature, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/chip';
 
 declare global {
@@ -31,8 +31,13 @@ export class LirumVacuumCard extends LirumCardBase<VacuumConfig> {
     return document.createElement(CARDS.vacuum.editor);
   }
 
-  public static getStubConfig(): Partial<VacuumConfig> {
-    return { type: `custom:${CARDS.vacuum.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<VacuumConfig> {
+    const entity = pickStubEntity(hass, fallback, ['vacuum']);
+    return { type: `custom:${CARDS.vacuum.tag}`, entity };
   }
 
   public setConfig(config: VacuumConfig): void {

@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/chip';
 
 declare global {
@@ -26,8 +26,13 @@ export class LirumLockCard extends LirumCardBase<LirumBaseConfig> {
     return document.createElement(CARDS.lock.editor);
   }
 
-  public static getStubConfig(): Partial<LirumBaseConfig> {
-    return { type: `custom:${CARDS.lock.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<LirumBaseConfig> {
+    const entity = pickStubEntity(hass, fallback, ['lock']);
+    return { type: `custom:${CARDS.lock.tag}`, entity };
   }
 
   public setConfig(config: LirumBaseConfig): void {

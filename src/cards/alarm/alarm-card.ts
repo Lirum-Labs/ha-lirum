@@ -2,7 +2,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/chip';
 import './alarm-keypad';
 
@@ -59,8 +59,13 @@ export class LirumAlarmCard extends LirumCardBase<AlarmConfig> {
     return document.createElement(CARDS.alarm.editor);
   }
 
-  public static getStubConfig(): Partial<AlarmConfig> {
-    return { type: `custom:${CARDS.alarm.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<AlarmConfig> {
+    const entity = pickStubEntity(hass, fallback, ['alarm_control_panel']);
+    return { type: `custom:${CARDS.alarm.tag}`, entity };
   }
 
   public setConfig(config: AlarmConfig): void {

@@ -2,7 +2,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/chip';
 import './light-controls';
 
@@ -47,10 +47,15 @@ export class LirumLightCard extends LirumCardBase<LightConfig> {
     return document.createElement(CARDS.light.editor);
   }
 
-  public static getStubConfig(): Partial<LightConfig> {
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<LightConfig> {
+    const entity = pickStubEntity(hass, fallback, ['light']);
     return {
       type: `custom:${CARDS.light.tag}`,
-      entity: '',
+      entity,
       show_brightness_control: true,
     };
   }

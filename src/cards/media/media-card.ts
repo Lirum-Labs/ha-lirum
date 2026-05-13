@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import { supportsFeature, type LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, supportsFeature, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/slider';
 import '../../core/chip';
 
@@ -40,8 +40,13 @@ export class LirumMediaCard extends LirumCardBase<MediaConfig> {
     return document.createElement(CARDS.media.editor);
   }
 
-  public static getStubConfig(): Partial<MediaConfig> {
-    return { type: `custom:${CARDS.media.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<MediaConfig> {
+    const entity = pickStubEntity(hass, fallback, ['media_player']);
+    return { type: `custom:${CARDS.media.tag}`, entity };
   }
 
   public setConfig(config: MediaConfig): void {

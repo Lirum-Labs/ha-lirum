@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/stat';
 import '../../core/spark';
 
@@ -39,8 +39,13 @@ export class LirumTileCard extends LirumCardBase<TileConfig> {
     return document.createElement(CARDS.tile.editor);
   }
 
-  public static getStubConfig(): Partial<TileConfig> {
-    return { type: `custom:${CARDS.tile.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<TileConfig> {
+    const entity = pickStubEntity(hass, fallback, ['sensor', 'input_number', 'number']);
+    return { type: `custom:${CARDS.tile.tag}`, entity };
   }
 
   public setConfig(config: TileConfig): void {

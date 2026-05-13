@@ -125,6 +125,31 @@ export function supportsFeature(stateObj: HassEntity | undefined, feature: numbe
 }
 
 /**
+ * Pick a representative entity from the user's HA so the Lovelace card
+ * picker can render a real preview of an entity-bound card.
+ *
+ * `fallback` is the full entity list HA passes to `getStubConfig`.
+ * `domains` is the list of acceptable domains for this card, in priority
+ * order (e.g. `['input_number', 'number']`). The first matching entity ID
+ * is returned; an empty string is returned if none match.
+ */
+export function pickStubEntity(
+  hass: HomeAssistant | undefined,
+  fallback: string[] | undefined,
+  domains: string[],
+): string {
+  const pool = fallback && fallback.length > 0
+    ? fallback
+    : hass ? Object.keys(hass.states) : [];
+  for (const d of domains) {
+    const prefix = `${d}.`;
+    const found = pool.find((id) => id.startsWith(prefix));
+    if (found) return found;
+  }
+  return '';
+}
+
+/**
  * For layout cards (stack / grid / conditional): when the parent's
  * background is set to `transparent` or `theme` (the theme-adaptive modes),
  * propagate the same background to any lirum child that doesn't explicitly

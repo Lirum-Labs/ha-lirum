@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import { domainOf, type LirumBaseConfig } from '../../core/hass';
+import { domainOf, pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/spark';
 import '../../core/bar';
 
@@ -48,8 +48,13 @@ export class LirumSensorCard extends LirumCardBase<SensorConfig> {
     return document.createElement(CARDS.sensor.editor);
   }
 
-  public static getStubConfig(): Partial<SensorConfig> {
-    return { type: `custom:${CARDS.sensor.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<SensorConfig> {
+    const entity = pickStubEntity(hass, fallback, ['sensor', 'binary_sensor']);
+    return { type: `custom:${CARDS.sensor.tag}`, entity };
   }
 
   public setConfig(config: SensorConfig): void {

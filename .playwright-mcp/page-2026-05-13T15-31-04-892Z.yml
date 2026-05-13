@@ -1,0 +1,520 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - heading "Lirum Cards" [level=1] [ref=e5]
+      - paragraph [ref=e6]:
+        - text: Glowing, animated Lovelace cards for Home Assistant.
+        - strong [ref=e7]: 31 cards
+        - text: sharing the design language of
+        - link "ha-power-gauge" [ref=e8] [cursor=pointer]:
+          - /url: https://github.com/Lirum-Labs/ha-power-gauge
+        - text: ", with the control surface of"
+        - link "Mushroom" [ref=e9] [cursor=pointer]:
+          - /url: https://github.com/piitaya/lovelace-mushroom
+        - text: .
+      - generic [ref=e10]:
+        - generic [ref=e11]: live demo
+        - generic [ref=e12]: v0.2.2
+        - generic [ref=e13]: 31 card types
+        - generic [ref=e14]: no HA needed
+    - generic [ref=e15]:
+      - radiogroup "Theme" [ref=e16]:
+        - generic [ref=e17]: Theme
+        - button "Dark" [ref=e18] [cursor=pointer]
+        - button "Light" [ref=e19] [cursor=pointer]
+      - radiogroup "Variant" [ref=e20]:
+        - generic [ref=e21]: Variant
+        - button "Dark-glow" [ref=e22] [cursor=pointer]
+        - button "Blended" [ref=e23] [cursor=pointer]
+  - navigation [ref=e25]:
+    - link "Living room" [ref=e26] [cursor=pointer]:
+      - /url: "#living-room"
+      - generic [ref=e27]: Living room
+    - link "Doors & access" [ref=e28] [cursor=pointer]:
+      - /url: "#doors"
+      - generic [ref=e29]: Doors & access
+    - link "At a glance" [ref=e30] [cursor=pointer]:
+      - /url: "#sensors"
+      - generic [ref=e31]: At a glance
+    - link "Comfort" [ref=e32] [cursor=pointer]:
+      - /url: "#comfort"
+      - generic [ref=e33]: Comfort
+    - link "People" [ref=e34] [cursor=pointer]:
+      - /url: "#people"
+      - generic [ref=e35]: People
+    - link "Quick actions" [ref=e36] [cursor=pointer]:
+      - /url: "#actions"
+      - generic [ref=e37]: Quick actions
+    - link "Inputs & selects" [ref=e38] [cursor=pointer]:
+      - /url: "#numbers"
+      - generic [ref=e39]: Inputs & selects
+    - link "Maintenance & info" [ref=e40] [cursor=pointer]:
+      - /url: "#updates"
+      - generic [ref=e41]: Maintenance & info
+    - link "Compositions" [ref=e42] [cursor=pointer]:
+      - /url: "#compositions"
+      - generic [ref=e43]: Compositions
+  - main [ref=e44]:
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - heading "Living room" [level=2] [ref=e47]:
+          - generic [ref=e48]: Living room
+        - paragraph [ref=e49]: Evening relaxation — lights, climate, music
+      - generic [ref=e50]:
+        - generic [ref=e54]:
+          - generic [ref=e55]: Living room
+          - generic [ref=e56]: 21.5 °C · cozy
+        - generic [ref=e61]:
+          - generic [ref=e64]: Living Room
+          - generic [ref=e65]: 80%
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: Brightness
+              - generic [ref=e75]:
+                - text: "80"
+                - generic [ref=e76]: "%"
+            - generic [ref=e77]:
+              - generic [ref=e78]: Color temperature
+              - generic [ref=e85]:
+                - text: 3,000
+                - generic [ref=e86]: K
+            - generic [ref=e87]:
+              - generic [ref=e88]: Color
+              - img [ref=e89]
+        - generic [ref=e96]:
+          - generic [ref=e99]: Kitchen
+          - generic [ref=e100]: "Off"
+        - generic [ref=e105]:
+          - generic [ref=e108]: Living Room Thermostat
+          - generic [ref=e109]: 21.5 → 22.0 °C
+          - generic [ref=e112]:
+            - img [ref=e113]
+            - generic:
+              - text: "21.5"
+              - generic: °C
+          - generic [ref=e116]:
+            - generic [ref=e117]:
+              - button "Off" [ref=e119] [cursor=pointer]:
+                - generic [ref=e120]: "Off"
+              - button "Heat" [ref=e122] [cursor=pointer]:
+                - generic [ref=e123]: Heat
+              - button "Cool" [ref=e125] [cursor=pointer]:
+                - generic [ref=e126]: Cool
+              - button "Auto" [ref=e128] [cursor=pointer]:
+                - generic [ref=e129]: Auto
+              - button "Heat/Cool" [ref=e131] [cursor=pointer]:
+                - generic [ref=e132]: Heat/Cool
+            - generic [ref=e138]:
+              - text: "22.0"
+              - generic [ref=e139]: °C
+        - generic [ref=e144]:
+          - generic [ref=e147]: Midnight City
+          - generic [ref=e148]: M83
+          - generic [ref=e149]:
+            - generic [ref=e150]:
+              - button [ref=e152] [cursor=pointer]
+              - button [ref=e154] [cursor=pointer]
+              - button [ref=e156] [cursor=pointer]
+              - button [ref=e158] [cursor=pointer]
+            - generic [ref=e164]:
+              - text: "42"
+              - generic [ref=e165]: "%"
+        - generic [ref=e169]:
+          - button "on" [ref=e171] [cursor=pointer]:
+            - generic [ref=e172]: "on"
+          - button [ref=e174] [cursor=pointer]
+          - button "14.2°" [ref=e176] [cursor=pointer]:
+            - generic [ref=e177]: 14.2°
+          - button [ref=e179] [cursor=pointer]
+          - button "2.5 kW" [ref=e181] [cursor=pointer]:
+            - generic [ref=e182]: 2.5 kW
+    - generic [ref=e183]:
+      - generic [ref=e184]:
+        - heading "Doors & access" [level=2] [ref=e185]:
+          - generic [ref=e186]: Doors & access
+        - paragraph [ref=e187]: Locks, blinds, alarm and the front-door camera
+      - generic [ref=e188]:
+        - generic [ref=e193]:
+          - generic [ref=e196]: Front Door
+          - generic [ref=e197]: locked
+          - generic [ref=e198]:
+            - button "Lock" [ref=e200] [cursor=pointer]:
+              - generic [ref=e201]: Lock
+            - button "Unlock" [ref=e203] [cursor=pointer]:
+              - generic [ref=e204]: Unlock
+        - generic [ref=e209]:
+          - generic [ref=e212]: Garage
+          - generic [ref=e213]: unlocked
+          - generic [ref=e214]:
+            - button "Lock" [ref=e216] [cursor=pointer]:
+              - generic [ref=e217]: Lock
+            - button "Unlock" [ref=e219] [cursor=pointer]:
+              - generic [ref=e220]: Unlock
+        - generic [ref=e225]:
+          - generic [ref=e228]: Garage Door
+          - generic [ref=e229]: closed
+          - generic [ref=e231]:
+            - button "Open" [ref=e233] [cursor=pointer]:
+              - generic [ref=e234]: Open
+            - button "Stop" [ref=e236] [cursor=pointer]:
+              - generic [ref=e237]: Stop
+            - button "Close" [ref=e239] [cursor=pointer]:
+              - generic [ref=e240]: Close
+        - generic [ref=e245]:
+          - generic [ref=e248]: Bedroom Blinds
+          - generic [ref=e249]: 60%
+          - generic [ref=e250]:
+            - generic [ref=e251]:
+              - button "Open" [ref=e253] [cursor=pointer]:
+                - generic [ref=e254]: Open
+              - button "Stop" [ref=e256] [cursor=pointer]:
+                - generic [ref=e257]: Stop
+              - button "Close" [ref=e259] [cursor=pointer]:
+                - generic [ref=e260]: Close
+            - generic [ref=e266]:
+              - text: "60"
+              - generic [ref=e267]: "%"
+        - generic [ref=e272]:
+          - generic [ref=e275]: Home Alarm
+          - generic [ref=e276]: disarmed
+          - generic [ref=e278]:
+            - button "Home" [ref=e280] [cursor=pointer]:
+              - generic [ref=e281]: Home
+            - button "Away" [ref=e283] [cursor=pointer]:
+              - generic [ref=e284]: Away
+            - button "Night" [ref=e286] [cursor=pointer]:
+              - generic [ref=e287]: Night
+            - button "Vacation" [ref=e289] [cursor=pointer]:
+              - generic [ref=e290]: Vacation
+            - button "Disarm" [ref=e292] [cursor=pointer]:
+              - generic [ref=e293]: Disarm
+        - generic [ref=e299]:
+          - img "Front Door" [ref=e300]
+          - generic [ref=e301]:
+            - generic [ref=e302]: Front Door
+            - generic [ref=e304]: idle
+    - generic [ref=e305]:
+      - generic [ref=e306]:
+        - heading "At a glance" [level=2] [ref=e307]:
+          - generic [ref=e308]: At a glance
+        - paragraph [ref=e309]: Weather, KPI tiles, a hero gauge and trend sparklines
+      - generic [ref=e310]:
+        - generic [ref=e314]:
+          - generic [ref=e317]:
+            - generic [ref=e318]:
+              - text: "14.2"
+              - generic [ref=e319]: °C
+            - generic [ref=e320]: partlycloudy
+          - generic [ref=e321]:
+            - generic [ref=e322]:
+              - generic [ref=e324]: Humidity
+              - generic [ref=e325]: 64%
+            - generic [ref=e326]:
+              - generic [ref=e328]: Wind
+              - generic [ref=e329]: 12 km/h
+            - generic [ref=e330]:
+              - generic [ref=e332]: Condition
+              - generic [ref=e333]: partlycloudy
+          - generic [ref=e335]:
+            - generic [ref=e336]:
+              - generic [ref=e339]: Today
+              - generic [ref=e340]:
+                - generic [ref=e341]: 19°
+                - generic [ref=e342]: ·
+                - generic [ref=e343]: 8°
+            - generic [ref=e344]:
+              - generic [ref=e346]: Fri
+              - generic [ref=e347]:
+                - generic [ref=e348]: 17°
+                - generic [ref=e349]: ·
+                - generic [ref=e350]: 9°
+            - generic [ref=e351]:
+              - generic [ref=e353]: Sat
+              - generic [ref=e354]:
+                - generic [ref=e355]: 14°
+                - generic [ref=e356]: ·
+                - generic [ref=e357]: 10°
+            - generic [ref=e358]:
+              - generic [ref=e360]: Sun
+              - generic [ref=e361]:
+                - generic [ref=e362]: 13°
+                - generic [ref=e363]: ·
+                - generic [ref=e364]: 7°
+            - generic [ref=e365]:
+              - generic [ref=e367]: Mon
+              - generic [ref=e368]:
+                - generic [ref=e369]: 18°
+                - generic [ref=e370]: ·
+                - generic [ref=e371]: 6°
+        - generic [ref=e376]:
+          - generic [ref=e378]:
+            - img [ref=e379]
+            - generic:
+              - generic:
+                - text: 2,480
+                - generic: W
+              - generic: SOLAR
+          - generic [ref=e447]: Solar Power
+        - generic [ref=e452]:
+          - generic [ref=e455]: Outside Temp
+          - generic [ref=e456]: 14.2 °C
+          - img [ref=e459]
+        - generic [ref=e468]:
+          - generic [ref=e471]: Solar Power
+          - generic [ref=e472]: 2480.0 W
+          - img [ref=e475]
+        - generic [ref=e484]:
+          - generic [ref=e489]:
+            - generic [ref=e490]:
+              - text: "14.2"
+              - generic [ref=e491]: °C
+            - generic [ref=e492]: Outside
+          - img [ref=e494]
+        - generic [ref=e508]:
+          - generic [ref=e509]:
+            - text: "42"
+            - generic [ref=e510]: "%"
+          - generic [ref=e511]: Humidity
+        - generic [ref=e521]:
+          - generic [ref=e522]:
+            - text: "18"
+            - generic [ref=e523]: "%"
+          - generic [ref=e524]: Battery
+        - generic [ref=e529]:
+          - generic [ref=e534]:
+            - generic [ref=e535]:
+              - text: "2480"
+              - generic [ref=e536]: W
+            - generic [ref=e537]: Power
+          - img [ref=e539]
+        - generic [ref=e548]:
+          - generic [ref=e551]: Phone Battery
+          - generic [ref=e552]: 18.0 %
+        - generic [ref=e561]:
+          - generic [ref=e564]: Hallway Motion
+          - generic [ref=e565]: "On"
+        - generic [ref=e570]:
+          - generic [ref=e573]: Office Window
+          - generic [ref=e574]: "Off"
+    - generic [ref=e575]:
+      - generic [ref=e576]:
+        - heading "Comfort" [level=2] [ref=e577]:
+          - generic [ref=e578]: Comfort
+        - paragraph [ref=e579]: Air movement, humidity, the robot vacuum
+      - generic [ref=e580]:
+        - generic [ref=e585]:
+          - generic [ref=e588]: Bedroom Fan
+          - generic [ref=e589]: 75% · oscillating
+          - generic [ref=e590]:
+            - generic [ref=e596]:
+              - text: "75"
+              - generic [ref=e597]: "%"
+            - button "Oscillate" [ref=e600] [cursor=pointer]:
+              - generic [ref=e601]: Oscillate
+        - generic [ref=e606]:
+          - generic [ref=e609]: Bedroom Humidifier
+          - generic [ref=e610]: 42% → 50%
+          - generic [ref=e611]:
+            - generic [ref=e617]:
+              - text: "50"
+              - generic [ref=e618]: "%"
+            - generic [ref=e619]:
+              - button "Normal" [ref=e621] [cursor=pointer]:
+                - generic [ref=e622]: Normal
+              - button "Sleep" [ref=e624] [cursor=pointer]:
+                - generic [ref=e625]: Sleep
+              - button "Eco" [ref=e627] [cursor=pointer]:
+                - generic [ref=e628]: Eco
+        - generic [ref=e633]:
+          - generic [ref=e636]: Roomba
+          - generic [ref=e637]: 92% · docked
+          - generic [ref=e639]:
+            - button "Start" [ref=e641] [cursor=pointer]:
+              - generic [ref=e642]: Start
+            - button "Pause" [ref=e644] [cursor=pointer]:
+              - generic [ref=e645]: Pause
+            - button "Stop" [ref=e647] [cursor=pointer]:
+              - generic [ref=e648]: Stop
+            - button "Return" [ref=e650] [cursor=pointer]:
+              - generic [ref=e651]: Return
+    - generic [ref=e652]:
+      - generic [ref=e653]:
+        - heading "People" [level=2] [ref=e654]:
+          - generic [ref=e655]: People
+        - paragraph [ref=e656]: Presence, person avatars
+      - generic [ref=e657]:
+        - generic [ref=e662]:
+          - generic [ref=e665]: Alice
+          - generic [ref=e666]: home
+        - generic [ref=e671]:
+          - generic [ref=e674]: Bob
+          - generic [ref=e675]: work
+        - generic [ref=e680]:
+          - generic [ref=e683]: Sun
+          - generic [ref=e684]: above_horizon
+    - generic [ref=e685]:
+      - generic [ref=e686]:
+        - heading "Quick actions" [level=2] [ref=e687]:
+          - generic [ref=e688]: Quick actions
+        - paragraph [ref=e689]: Hero tap targets — buttons, scenes, scripts
+      - generic [ref=e690]:
+        - 'button "Restart Router Last triggered: never" [ref=e696] [cursor=pointer]':
+          - generic [ref=e697]:
+            - generic [ref=e698]: Restart Router
+            - generic [ref=e699]: "Last triggered: never"
+        - button "Movie Time activated 17h ago" [ref=e705] [cursor=pointer]:
+          - generic [ref=e706]:
+            - generic [ref=e707]: Movie Time
+            - generic [ref=e708]: activated 17h ago
+        - button "Morning Never activated" [ref=e714] [cursor=pointer]:
+          - generic [ref=e715]:
+            - generic [ref=e716]: Morning
+            - generic [ref=e717]: Never activated
+        - button "Bedtime Routine ran 8m ago" [ref=e723] [cursor=pointer]:
+          - generic [ref=e724]:
+            - generic [ref=e725]: Bedtime Routine
+            - generic [ref=e726]: ran 8m ago
+        - button "Running Script Running…" [ref=e732] [cursor=pointer]:
+          - generic [ref=e733]:
+            - generic [ref=e734]: Running Script
+            - generic [ref=e735]: Running…
+        - generic [ref=e741]:
+          - generic [ref=e744]: Movie Mode
+          - generic [ref=e745]: "on"
+    - generic [ref=e746]:
+      - generic [ref=e747]:
+        - heading "Inputs & selects" [level=2] [ref=e748]:
+          - generic [ref=e749]: Inputs & selects
+        - paragraph [ref=e750]: Sliders, choices, ranges
+      - generic [ref=e751]:
+        - generic [ref=e756]:
+          - generic [ref=e759]: Brightness Offset
+          - generic [ref=e760]: 50 %
+          - generic [ref=e767]:
+            - text: "50"
+            - generic [ref=e768]: "%"
+        - generic [ref=e773]:
+          - generic [ref=e776]: Outside Temp
+          - generic [ref=e777]: 14.2 °C
+          - generic [ref=e779]:
+            - generic:
+              - generic:
+                - text: "14.2"
+                - generic: °C
+        - generic [ref=e784]:
+          - generic [ref=e787]: Boiler Setpoint
+          - generic [ref=e788]: 60 °C
+          - generic [ref=e795]:
+            - text: "60"
+            - generic [ref=e796]: °C
+        - generic [ref=e801]:
+          - generic [ref=e804]: Washer Mode
+          - generic [ref=e805]: normal
+          - button [ref=e808] [cursor=pointer]
+        - generic [ref=e813]:
+          - generic [ref=e816]: Scene
+          - generic [ref=e817]: evening
+          - button [ref=e820] [cursor=pointer]
+          - generic [ref=e822]:
+            - button "Morning" [ref=e824] [cursor=pointer]:
+              - generic [ref=e825]: Morning
+            - button "Day" [ref=e827] [cursor=pointer]:
+              - generic [ref=e828]: Day
+            - button "Evening" [ref=e830] [cursor=pointer]:
+              - generic [ref=e831]: Evening
+            - button "Night" [ref=e833] [cursor=pointer]:
+              - generic [ref=e834]: Night
+    - generic [ref=e835]:
+      - generic [ref=e836]:
+        - heading "Maintenance & info" [level=2] [ref=e837]:
+          - generic [ref=e838]: Maintenance & info
+        - paragraph [ref=e839]: Updates, templates and rendered markdown
+      - generic [ref=e840]:
+        - generic [ref=e845]:
+          - generic [ref=e848]: HACS
+          - generic [ref=e849]: 2.0.1 → 2.1.0
+          - button "Install" [ref=e852] [cursor=pointer]:
+            - generic [ref=e853]: Install
+        - generic [ref=e858]:
+          - generic [ref=e861]: Home Assistant Core
+          - generic [ref=e862]: Up to date
+        - generic [ref=e867]:
+          - generic [ref=e870]: "Outside: 14.2°C"
+          - generic [ref=e871]: Sun is above_horizon
+        - generic [ref=e875]:
+          - generic [ref=e876]: About Lirum
+          - generic [ref=e878]:
+            - paragraph [ref=e879]:
+              - strong [ref=e880]: Lirum Cards
+              - text: is a Mushroom-equivalent suite with the look of
+              - link "ha-power-gauge" [ref=e881] [cursor=pointer]:
+                - /url: https://github.com/Lirum-Labs/ha-power-gauge
+              - text: .
+            - list [ref=e882]:
+              - listitem [ref=e883]: 31 card types
+              - listitem [ref=e884]: Shared design system
+              - listitem [ref=e885]:
+                - text: Theme-adaptive (
+                - code [ref=e886]: "background: transparent"
+                - text: per card)
+              - listitem [ref=e887]: One HACS install
+            - paragraph [ref=e888]:
+              - text: Paste the dashboard YAML in
+              - code [ref=e889]: docs/example-dashboard.yaml
+              - text: to get started.
+    - generic [ref=e890]:
+      - generic [ref=e891]:
+        - heading "Compositions" [level=2] [ref=e892]:
+          - generic [ref=e893]: Compositions
+        - paragraph [ref=e894]: Layout containers — stack, grid, conditional
+      - generic [ref=e895]:
+        - generic [ref=e898]:
+          - generic [ref=e899]: Pair
+          - generic [ref=e900]:
+            - generic [ref=e904]:
+              - generic [ref=e907]: Corner Fan
+              - generic [ref=e908]: "on"
+            - generic [ref=e912]:
+              - generic [ref=e915]: Coffee Maker
+              - generic [ref=e916]: "off"
+        - generic [ref=e920]:
+          - generic [ref=e929]:
+            - generic [ref=e930]:
+              - text: "14.2"
+              - generic [ref=e931]: °C
+            - generic [ref=e932]: Out
+          - generic [ref=e941]:
+            - generic [ref=e942]:
+              - text: "42.0"
+              - generic [ref=e943]: "%"
+            - generic [ref=e944]: Kit
+          - generic [ref=e953]:
+            - generic [ref=e954]:
+              - text: "18.0"
+              - generic [ref=e955]: "%"
+            - generic [ref=e956]: Bat
+          - generic [ref=e965]:
+            - generic [ref=e966]:
+              - text: "2480.0"
+              - generic [ref=e967]: W
+            - generic [ref=e968]: Sun
+        - generic [ref=e974]:
+          - generic [ref=e977]: Living Room
+          - generic [ref=e978]: 80%
+          - generic [ref=e981]:
+            - generic [ref=e982]: Brightness
+            - generic [ref=e988]:
+              - text: "80"
+              - generic [ref=e989]: "%"
+  - contentinfo [ref=e990]:
+    - text: Lirum Cards ·
+    - link "github.com/Lirum-Labs/ha-lirum" [ref=e991] [cursor=pointer]:
+      - /url: https://github.com/Lirum-Labs/ha-lirum
+    - text: · Apache 2.0 © 2026 Lirum Labs.
+    - text: Inspired by
+    - link "Mushroom" [ref=e992] [cursor=pointer]:
+      - /url: https://github.com/piitaya/lovelace-mushroom
+    - text: and
+    - link "ha-power-gauge" [ref=e993] [cursor=pointer]:
+      - /url: https://github.com/Lirum-Labs/ha-power-gauge
+    - text: .

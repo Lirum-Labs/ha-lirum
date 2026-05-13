@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import { domainOf, type LirumBaseConfig } from '../../core/hass';
+import { domainOf, pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import { backgroundVars } from '../../core/tokens';
 import '../../core/button';
 
@@ -38,8 +38,15 @@ export class LirumButtonCard extends LirumCardBase<ButtonConfig> {
     return document.createElement(CARDS.button.editor);
   }
 
-  public static getStubConfig(): Partial<ButtonConfig> {
-    return { type: `custom:${CARDS.button.tag}`, name: 'Button' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<ButtonConfig> {
+    const entity = pickStubEntity(hass, fallback, ['button', 'script']);
+    const stub: Partial<ButtonConfig> = { type: `custom:${CARDS.button.tag}`, name: 'Button' };
+    if (entity) stub.entity = entity;
+    return stub;
   }
 
   public setConfig(config: ButtonConfig): void {

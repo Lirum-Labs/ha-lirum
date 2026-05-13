@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import { supportsFeature, type LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, supportsFeature, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/slider';
 import '../../core/chip';
 
@@ -40,8 +40,13 @@ export class LirumCoverCard extends LirumCardBase<CoverConfig> {
     return document.createElement(CARDS.cover.editor);
   }
 
-  public static getStubConfig(): Partial<CoverConfig> {
-    return { type: `custom:${CARDS.cover.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<CoverConfig> {
+    const entity = pickStubEntity(hass, fallback, ['cover']);
+    return { type: `custom:${CARDS.cover.tag}`, entity };
   }
 
   public setConfig(config: CoverConfig): void {

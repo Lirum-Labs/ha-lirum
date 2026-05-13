@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/slider';
 
 declare global {
@@ -36,8 +36,13 @@ export class LirumSliderCard extends LirumCardBase<SliderConfig> {
     return document.createElement(CARDS.slider.editor);
   }
 
-  public static getStubConfig(): Partial<SliderConfig> {
-    return { type: `custom:${CARDS.slider.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<SliderConfig> {
+    const entity = pickStubEntity(hass, fallback, ['input_number', 'number', 'sensor']);
+    return { type: `custom:${CARDS.slider.tag}`, entity };
   }
 
   public setConfig(config: SliderConfig): void {

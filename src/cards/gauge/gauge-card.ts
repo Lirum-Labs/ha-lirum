@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/gauge';
 
 declare global {
@@ -54,8 +54,13 @@ export class LirumGaugeCard extends LirumCardBase<GaugeConfig> {
     return document.createElement(CARDS.gauge.editor);
   }
 
-  public static getStubConfig(): Partial<GaugeConfig> {
-    return { type: `custom:${CARDS.gauge.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<GaugeConfig> {
+    const entity = pickStubEntity(hass, fallback, ['sensor', 'input_number', 'number']);
+    return { type: `custom:${CARDS.gauge.tag}`, entity };
   }
 
   public setConfig(config: GaugeConfig): void {

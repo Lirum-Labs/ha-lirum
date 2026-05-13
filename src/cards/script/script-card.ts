@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/button';
 
 declare global {
@@ -50,8 +50,13 @@ export class LirumScriptCard extends LirumCardBase<ScriptConfig> {
     return document.createElement(CARDS.script.editor);
   }
 
-  public static getStubConfig(): Partial<ScriptConfig> {
-    return { type: `custom:${CARDS.script.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<ScriptConfig> {
+    const entity = pickStubEntity(hass, fallback, ['script']);
+    return { type: `custom:${CARDS.script.tag}`, entity };
   }
 
   public setConfig(config: ScriptConfig): void {

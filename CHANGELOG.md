@@ -2,6 +2,17 @@
 
 All notable changes are tracked here. The project follows semver — minor bumps add new cards or non-breaking improvements, patches are bug fixes.
 
+## v0.2.4 — 2026-05-13
+
+### Fixed
+- **Lovelace card picker previews now render** for every entity-bound card. Each `getStubConfig` now accepts `(hass, entities, entitiesFallback)` per HA's API and auto-picks a representative entity from the user's HA instance matching the card's allowed domains. Previously, stub configs returned `entity: ''` which caused `setConfig` to throw and the picker showed only the card's name + description.
+
+### New helper
+- `pickStubEntity(hass, fallback, domains)` in `core/hass.ts` — finds the first entity ID in `fallback` (or `hass.states`) that matches one of the listed domains, returning `''` if none match.
+
+### Affected cards
+All 25 entity-bound cards: entity, switch, light, number, slider, cover, climate, fan, media, lock, person, select, vacuum, update, humidifier, alarm, sensor, scene, script, camera, weather, gauge, tile, template, button.
+
 ## v0.2.3 — 2026-05-13
 
 ### Fixed

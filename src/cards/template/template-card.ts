@@ -2,7 +2,7 @@ import { customElement } from 'lit/decorators.js';
 import { nothing, type TemplateResult } from 'lit';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 
 declare global {
   interface Window {
@@ -40,8 +40,15 @@ export class LirumTemplateCard extends LirumCardBase<TemplateConfig> {
     return document.createElement(CARDS.template.editor);
   }
 
-  public static getStubConfig(): Partial<TemplateConfig> {
-    return { type: `custom:${CARDS.template.tag}`, primary: 'Hello' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<TemplateConfig> {
+    const entity = pickStubEntity(hass, fallback, ['sensor', 'binary_sensor', 'light', 'switch']);
+    const stub: Partial<TemplateConfig> = { type: `custom:${CARDS.template.tag}`, primary: 'Hello' };
+    if (entity) stub.entity = entity;
+    return stub;
   }
 
   public setConfig(config: TemplateConfig): void {

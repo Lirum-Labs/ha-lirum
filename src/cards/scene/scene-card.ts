@@ -4,7 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { LirumCardBase } from '../../core/lirum-base';
 import { CARDS } from '../../const';
 import { backgroundVars } from '../../core/tokens';
-import type { LirumBaseConfig } from '../../core/hass';
+import { pickStubEntity, type HomeAssistant, type LirumBaseConfig } from '../../core/hass';
 import '../../core/button';
 
 declare global {
@@ -51,8 +51,13 @@ export class LirumSceneCard extends LirumCardBase<SceneConfig> {
     return document.createElement(CARDS.scene.editor);
   }
 
-  public static getStubConfig(): Partial<SceneConfig> {
-    return { type: `custom:${CARDS.scene.tag}`, entity: '' };
+  public static getStubConfig(
+    hass?: HomeAssistant,
+    _entities?: string[],
+    fallback?: string[],
+  ): Partial<SceneConfig> {
+    const entity = pickStubEntity(hass, fallback, ['scene']);
+    return { type: `custom:${CARDS.scene.tag}`, entity };
   }
 
   public setConfig(config: SceneConfig): void {

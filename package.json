@@ -1,6 +1,6 @@
 {
   "name": "ha-lirum",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Glowing, animated Lovelace cards for Home Assistant — Mushroom controls, ha-power-gauge feel.",
   "main": "dist/lirum-cards.js",
   "type": "module",
